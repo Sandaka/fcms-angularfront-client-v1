@@ -1,0 +1,111 @@
+<!-- Bracket CSS -->
+<link rel="stylesheet" href="../../../../assets/css/theme_admin/bracket.css">
+
+<div class="br-mainpanel">
+    <div class="br-pageheader">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+            <a class="breadcrumb-item" href="/">Home</a>
+            <a class="breadcrumb-item" href="#">user</a>
+            <span class="breadcrumb-item active">New User</span>
+        </nav>
+    </div><!-- br-pageheader -->
+
+    <div class="br-pagetitle">
+        <i class="fa fa-book"></i>
+        <div>
+            <h4>Add New user</h4>
+            <p class="mg-b-0">Forms are used to collect user information with different element types of input, select,
+                checkboxes, radios and more.</p>
+        </div>
+    </div><!-- d-flex -->
+
+    <div class="br-pagebody">
+        <!-- start forms-->
+        <form [formGroup]="addUserForm" (ngSubmit)="onSubmit(addUserForm.value)">
+            <div class="br-section-wrapper">
+                <!-- white space-->
+                <div class="row">
+                    <div class="col-md-3 col-sm-2"></div>
+                    <div
+                        class="col-md-6 col-sm-8 login-wrapper wd-300 wd-xs-400 pd-25 pd-xs-40 bg-white rounded shadow-base">
+                        <div class="signin-logo tx-center tx-28 tx-bold tx-inverse"><span class="tx-normal"></span>
+                            New<span class="tx-info"> User</span> <span class="tx-normal"></span></div>
+                        <div class="tx-center mg-b-40">submit this form</div>
+
+                        <div class="form-group ">
+                            <div class="mg-b-10 ">
+                                <label>User Role :<span class="tx-danger"></span></label>
+                                <div class="">
+                                    <div id="slWrapper2" class="parsley-select  mg-t-0">
+                                        <select class="form-control" id="userroleid" formControlName="userroleid"
+                                            required [ngClass]="{'form-control': true,
+                                        'is-invalid': userroleid.invalid && userroleid.touched,
+                                        'is-valid': userroleid.valid}">
+                                            <option *ngFor="let userrole of userRoles" value='{{userrole.userroleid}}'>
+                                                {{userrole.userrolename}}
+                                            </option>
+                                            <!-- <option label="User Role"></option>
+                                        <option value="Shanthi N.K">Admin</option>
+                                        <option value="P.G.Nilanthi">Member</option>
+                                        <option value="Lihini Perera">Trainer</option> -->
+                                        </select>
+                                        <small id="fnHelp" *ngIf="userroleid.invalid && userroleid.touched"
+                                            class="form-text custom-invalid-feedback" style="color: red;">Please select
+                                            the role</small>
+                                        <div id="slErrorContainer2"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label>User Name :<span class="tx-danger"></span></label>
+                                <input type="text" class="form-control"  id="username"
+                                    formControlName="username" [ngClass]="{'form-control': true,
+                                    'is-invalid': username.invalid && username.touched,
+                                    'is-valid': username.valid}" placeholder="Enter Username">
+                                <small id="fnHelp" *ngIf="username.invalid && username.touched"
+                                    class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                    required</small>
+                            </div>
+                            <div class="col-md-6 mg-t-30">
+                                <button type="button" class="btn btn-info btn-block"
+                                    (click)='findUserNameExists(username.value)'>Check availability</button>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style="color: red; font-size: smaller;">
+                                <label *ngIf="userNameAvailable">User name already exists!</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>password :<span class="tx-danger"></span></label>
+                            <input type="password" class="form-control" formControlName="password" id="password"
+                                [ngClass]="{'form-control': true,
+                            'is-invalid': password.invalid && password.touched,
+                            'is-valid': password.valid}" placeholder="Enter Password">
+                            <small id="fnHelp" *ngIf="password.invalid && password.touched"
+                                class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                required</small>
+                        </div>
+                        <div class="row mg-t-50">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-info btn-block "
+                                    [disabled]="addUserForm.invalid">save data </button>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="reset" class="btn btn-info btn-block ">cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-2"></div>
+                </div>
+            </div>
+        </form>
+        <!--end white space-->
+    </div>
+</div>

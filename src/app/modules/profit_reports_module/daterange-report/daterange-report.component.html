@@ -1,0 +1,147 @@
+<!-- Bracket CSS -->
+<link rel="stylesheet" href="../../../../assets/css/theme_admin/bracket.css">
+<link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
+
+<div class="br-mainpanel">
+    <div class="br-pageheader">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+            <a class="breadcrumb-item" href="/">Home</a>
+            <a class="breadcrumb-item" href="#">profit</a>
+            <span class="breadcrumb-item active">Seleted Period Profit Report</span>
+        </nav>
+    </div><!-- br-pageheader -->
+
+    <div class="br-pagetitle">
+        <i class="fa fa-file"></i>
+        <div>
+            <h4>Selected Period Profit Report</h4>
+            <p class="mg-b-0">Please select the period to find the profit for given range.</p>
+        </div>
+    </div><!-- d-flex -->
+
+    <div class="br-pagebody">
+        <form [formGroup]="dateRangeReportForm">
+            <!-- start forms-->
+            <div class="br-section-wrapper">
+                <!-- white space-->
+
+                <div class="d-md-flex mg-b-30 ">
+                    <div class="form-group mg-b-0 ">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group mg-b-10  mg-t-20 mg-md-t-0">
+                                    <label>From <span class="tx-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="MM/DD/YYYY"
+                                            formControlName="fromdate" [ngClass]="{'form-control': true,
+                                    'is-invalid': fromdate.invalid && fromdate.touched,
+                                    'is-valid': fromdate.valid}" bsDatepicker>
+                                        <small id="fnHelp" *ngIf="fromdate.invalid && fromdate.touched"
+                                            class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                            required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group mg-b-0  mg-t-20 mg-md-t-0 ">
+                                    <label>To <span class="tx-danger">*</span></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="MM/DD/YYYY"
+                                            formControlName="todate" [ngClass]="{'form-control': true,
+                                    'is-invalid': todate.invalid && todate.touched,
+                                    'is-valid': todate.valid}" bsDatepicker>
+                                        <small id="fnHelp" *ngIf="todate.invalid && todate.touched"
+                                            class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                            required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <!-- <div class="form-group mg-b-10  mg-t-20 mg-md-t-0"> -->
+                                <label style="color: transparent;">click</label>
+                                <button type="button" class="btn btn-primary" [disabled]="dateRangeReportForm.invalid"
+                                    (click)="loadReport(fromdate.value, todate.value)">Load Report</button>
+                                <!-- </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="mg-t-30 col-md-6">
+                        <h6 class="br-section-label">Income Per Date</h6>
+                        <p class="br-section-text"></p>
+
+                        <div class="table-wrapper" data-select2-id="6">
+                            <div id="datatable1_wrapper" class="dataTables_wrapper no-footer"
+                                data-select2-id="datatable1_wrapper">
+
+                                <table class="table table-striped" style="width: auto;">
+                                    <thead class="thead-light">
+                                        <tr role="row">
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Income per date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let income of incomeDataList">
+                                            <td>{{income.paymentDate}}</td>
+                                            <td style="text-align: right;">{{income.totalIncome}}.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div><!-- table-wrapper -->
+                    <div class="mg-t-30 col-md-6">
+                        <h6 class="br-section-label">expense Per Date</h6>
+                        <p class="br-section-text"></p>
+
+                        <div class="table-wrapper">
+                            <div id="datatable2_wrapper" class="dataTables_wrapper no-footer">
+                                <table class="table table-striped" style="width: auto;">
+                                    <thead class="thead-light">
+                                        <tr role="row">
+                                            <th>Date</th>
+                                            <th>Expense per date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let expenses of expenseDataList">
+                                            <td>{{expenses.expenseDate}}</td>
+                                            <td style="text-align: right;">{{expenses.totalExpense}}.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row tx-18 mg-t-20">
+                    <div class="col-md-6">Total Income: <span style="font-weight: bold;">{{totalIncomeCal}}.00</span>
+                    </div>
+                    <div class="col-md-6">Total Expense: <span style="font-weight: bold;">{{totalExpenseCal}}.00</span>
+                    </div>
+                </div>
+                <div class="tx-28 mg-t-30">
+                    Total Profit (Rs.) : <span style="font-weight: bolder;">{{totalProfit}}.00</span>
+                </div>
+            </div>
+        </form>
+        <!--end white space-->
+    </div>
+    <!--white space closed-->
+</div>

@@ -1,0 +1,224 @@
+<!-- Bracket CSS -->
+<link rel="stylesheet" href="../../../../assets/css/theme_admin/bracket.css">
+
+
+<div class="br-mainpanel">
+    <div class="br-pageheader">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+            <a class="breadcrumb-item" href="/">Home</a>
+            <a class="breadcrumb-item" href="#">Workouts</a>
+            <span class="breadcrumb-item active">Measurements</span>
+        </nav>
+    </div><!-- br-pageheader -->
+
+    <div class="br-pagetitle">
+        <i class="fa fa-book"></i>
+        <div>
+            <h4>Body Improvements</h4>
+            <p class="mg-b-0">Please click on New Measurement tab to add measurements.</p>
+        </div>
+    </div><!-- d-flex -->
+
+    <div class="br-pagebody">
+        <!-- start forms-->
+        <div class="br-section-wrapper">
+            <form [formGroup]="addBodyImprovementsForm" (ngSubmit)="saveImprovements(addBodyImprovementsForm.value)">
+
+                <!-- white space-->
+                <div class="row mg-t-0">
+                    <div class="col-xl-6 mg-b-20">
+                        <!-- start member details form  -->
+                        <div class="form-layout form-layout-4 ">
+                            <h6 class="br-section-label">Schedule Details</h6>
+                            <p class="br-section-text">please select the member and schedule.</p>
+
+                            <div class="mg-b-30 ">
+                                <div class="form-group mg-b-0">
+                                    <label>Select Member :<span class="tx-danger"></span></label>
+                                    <div class="">
+                                        <select class="form-control" formControlName="memberId" required #m
+                                            (change)="findSchedules(m.value)" [ngClass]="{'form-control': true,
+                                        'is-invalid': memberId.invalid && memberId.touched,
+                                        'is-valid': memberId.valid}">
+                                            <option label="Member"></option>
+                                            <option *ngFor="let member of memberList" value="{{member.memberid}}">
+                                                {{member.full_name}}</option>
+
+                                        </select>
+                                        <small id="fnHelp" *ngIf="memberId.invalid && memberId.touched"
+                                            class="form-text custom-invalid-feedback" style="color: red;">Please Select
+                                            the Member</small>
+                                    </div><!-- col-4 -->
+                                </div>
+                            </div>
+                            <div class="mg-b-30 ">
+                                <div class="form-group mg-b-0 ">
+                                    <label>Select schedule no :<span class="tx-danger"></span></label>
+                                    <div class="">
+                                        <div id="slWrapper2" class="parsley-select  mg-t-0">
+                                            <select class="form-control" formControlName="scheduleId" required
+                                                [ngClass]="{'form-control': true,
+                                        'is-invalid': scheduleId.invalid && scheduleId.touched,
+                                        'is-valid': scheduleId.valid}">
+                                                <option *ngFor="let schedule of scheduleList"
+                                                    value={{schedule.scheduleId}}>
+                                                    {{schedule.scheduleNumber}}</option>
+                                            </select>
+                                            <small id="fnHelp" *ngIf="scheduleId.invalid && scheduleId.touched"
+                                                class="form-text custom-invalid-feedback" style="color: red;">Please
+                                                Select
+                                                the Schedule</small>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class=" mg-t-20 mg-xl-t-0">
+                            <button type="button" class="modal-effect btn btn-primary btn-block" data-effect="effect-newspaper" >View Previous Improvements</button>
+                            
+                        </div> -->
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div id="accordion7" class="accordion accordion-head-colored accordion-inverse mg-t-0"
+                            role="tablist">
+                            <div class="card">
+                                <div class="card-header" role="tab" id="headingOne7">
+                                    <h6 class="mg-b-0">
+                                        <a data-toggle="collapse" data-parent="#accordion7" href="#collapseOne7"
+                                            aria-expanded="false" aria-controls="collapseOne7" class="collapsed">
+                                            New Measurement (Please provide in inches)
+                                        </a>
+                                    </h6>
+                                </div><!-- card-header -->
+
+                                <div id="collapseOne7" class="collapse" role="tabpanel" aria-labelledby="headingOne7">
+                                    <div class="card-block pd-20">
+                                        <div class="row mg-t-20">
+                                            <div class="col-md-5 ">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">Shoulders <span
+                                                            class="tx-danger">*</span></label>
+                                                    <input class="form-control" type="text" formControlName="shoulder"
+                                                        [ngClass]="{'form-control': true,
+                                                    'is-invalid': shoulder.invalid && shoulder.touched,
+                                                    'is-valid': shoulder.valid}" placeholder="">
+                                                    <small id="fnHelp" *ngIf="shoulder.invalid && shoulder.touched"
+                                                        class="form-text custom-invalid-feedback"
+                                                        style="color: red;">Field is
+                                                        required</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">Chest <span
+                                                            class="tx-danger">*</span></label>
+                                                    <input class="form-control" type="text" formControlName="chest"
+                                                        [ngClass]="{'form-control': true,
+                                                    'is-invalid': chest.invalid && chest.touched,
+                                                    'is-valid': chest.valid}" placeholder="">
+                                                    <small id="fnHelp" *ngIf="chest.invalid && chest.touched"
+                                                        class="form-text custom-invalid-feedback"
+                                                        style="color: red;">Field is
+                                                        required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mg-t-20">
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">Thighs <span
+                                                            class="tx-danger">*</span></label>
+                                                    <input class="form-control" type="text" formControlName="thighs"
+                                                        [ngClass]="{'form-control': true,
+                                                    'is-invalid': thighs.invalid && thighs.touched,
+                                                    'is-valid': thighs.valid}" placeholder="">
+                                                    <small id="fnHelp" *ngIf="thighs.invalid && thighs.touched"
+                                                        class="form-text custom-invalid-feedback"
+                                                        style="color: red;">Field is
+                                                        required</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">Calves <span
+                                                            class="tx-danger">*</span></label>
+                                                    <input class="form-control" type="text" formControlName="calves"
+                                                        [ngClass]="{'form-control': true,
+                                                    'is-invalid': calves.invalid && calves.touched,
+                                                    'is-valid': calves.valid}" placeholder="">
+                                                    <small id="fnHelp" *ngIf="calves.invalid && calves.touched"
+                                                        class="form-text custom-invalid-feedback"
+                                                        style="color: red;">Field is
+                                                        required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mg-t-20">
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">Bycep & Tricep <span
+                                                            class="tx-danger">*</span></label>
+                                                    <input class="form-control" type="text"
+                                                        formControlName="bycepTricep" [ngClass]="{'form-control': true,
+                                                        'is-invalid': bycepTricep.invalid && bycepTricep.touched,
+                                                        'is-valid': bycepTricep.valid}" placeholder="">
+                                                    <small id="fnHelp"
+                                                        *ngIf="bycepTricep.invalid && bycepTricep.touched"
+                                                        class="form-text custom-invalid-feedback"
+                                                        style="color: red;">Field is
+                                                        required</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">Abs <span
+                                                            class="tx-danger">*</span></label>
+                                                    <input class="form-control" type="text" formControlName="abs"
+                                                        [ngClass]="{'form-control': true,
+                                                    'is-invalid': abs.invalid && abs.touched,
+                                                    'is-valid': abs.valid}" placeholder="">
+                                                    <small id="fnHelp" *ngIf="abs.invalid && abs.touched"
+                                                        class="form-text custom-invalid-feedback"
+                                                        style="color: red;">Field is
+                                                        required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mg-t-20">
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label class="form-control-label">Forearms <span
+                                                            class="tx-danger">*</span></label>
+                                                    <input class="form-control" type="text" formControlName="forearms"
+                                                        [ngClass]="{'form-control': true,
+                                                    'is-invalid': forearms.invalid && forearms.touched,
+                                                    'is-valid': forearms.valid}" placeholder="">
+                                                    <small id="fnHelp" *ngIf="forearms.invalid && forearms.touched"
+                                                        class="form-text custom-invalid-feedback"
+                                                        style="color: red;">Field is
+                                                        required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mg-t-30 col-md-12">
+                                            <div class="mg-l-100">
+                                                <div class="form-layout-footer ">
+                                                    <button class="btn btn-primary active" type="submit"
+                                                        [disabled]="addBodyImprovementsForm.invalid">Save form</button>
+                                                    <button class="btn btn-secondary" type="reset">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

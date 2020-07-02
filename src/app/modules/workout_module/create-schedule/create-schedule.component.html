@@ -1,0 +1,318 @@
+<link href="../../../../assets/css/all.min.css" rel="stylesheet">
+<link href="../../../../assets/css/ionicons.min.css" rel="stylesheet">
+<link href="../../../../assets/css/github.css" rel="stylesheet">
+<link href="../../../../assets/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
+
+<!-- Bracket CSS -->
+<link rel="stylesheet" href="../../../../assets/css/theme_admin/bracket.css">
+
+<div class="br-mainpanel">
+    <div class="br-pageheader">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+            <a class="breadcrumb-item" routerLink="/">Home</a>
+            <a class="breadcrumb-item" href="#">Schedule</a>
+            <span class="breadcrumb-item active">Create Schedule</span>
+        </nav>
+    </div><!-- br-pageheader -->
+
+    <div class="br-pagetitle">
+        <i class="fa fa-book"></i>
+        <div>
+            <h4>Create Schedule</h4>
+            <p class="mg-b-0">Forms are used to collect user information with different element types of input, select,
+                checkboxes, radios and more.</p>
+        </div>
+    </div><!-- d-flex -->
+
+    <div class="br-pagebody">
+        <!-- start forms-->
+        <form [formGroup]="createScheduleForm" (ngSubmit)="onSubmit(f)" #f="ngForm">
+            <div class="br-section-wrapper">
+                <!-- white space-->
+                <div class="row mg-t-0">
+                    <div class="col-xl-5 col-md-6 col-sm-12 col-xs-12">
+                        <!-- start member details form  -->
+                        <div class="form-layout form-layout-4 mg-t-10">
+                            <h6 class="br-section-label">Schedule Details</h6>
+                            <p class="br-section-text">please make your schedule.</p>
+
+                            <div class="mg-b-30 ">
+                                <div class="form-group mg-b-0">
+                                    <label>Select Member :<span class="tx-danger"></span></label>
+                                    <div class="">
+                                        <select class="form-control" formControlName="memberregid" [ngClass]="{'form-control': true,
+                                        'is-invalid': memberregid.invalid && memberregid.touched,
+                                        'is-valid': memberregid.valid}">
+                                            <option *ngFor="let member of memberList" value="{{member.memberregid}}">
+                                                {{member.full_name}}</option>
+
+                                        </select>
+                                        <small id="fnHelp" *ngIf="memberregid.invalid && memberregid.touched"
+                                            class="form-text custom-invalid-feedback" style="color: red;">Please select
+                                            the
+                                            member</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="mg-b-30 ">
+                                        <div class="form-group mg-b-0">
+                                            <label>Schedule No <span class="tx-danger">*</span></label>
+                                            <input type="number" name="number" class="form-control " placeholder=""
+                                                formControlName="schedulenumber" [ngClass]="{'form-control': true,
+                                                'is-invalid': schedulenumber.invalid && schedulenumber.touched,
+                                                'is-valid': schedulenumber.valid}" required="">
+                                            <small id="fnHelp" *ngIf="schedulenumber.invalid && schedulenumber.touched"
+                                                class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                                required</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <!-- <button type="button" class="btn btn-secondary">Previouse Schedules</button> -->
+                                    <a href=""><small>Prev. Schedules?</small> </a>
+                                </div>
+                            </div>
+
+
+
+                            <div class="d-md-flex mg-b-30 ">
+                                <div class="form-group mg-b-0 ">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mg-b-10  mg-t-20 mg-md-t-0">
+                                                <label>From <span class="tx-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="MM/DD/YYYY"
+                                                        formControlName="fromdate" [ngClass]="{'form-control': true,
+                                                        'is-invalid': fromdate.invalid && fromdate.touched,
+                                                        'is-valid': fromdate.valid}" bsDatepicker>
+                                                    <small id="fnHelp" *ngIf="fromdate.invalid && fromdate.touched"
+                                                        class="form-text custom-invalid-feedback"
+                                                        style="color: red;">Field is
+                                                        required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mg-b-0  mg-t-20 mg-md-t-0 ">
+                                                <label>To <span class="tx-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="MM/DD/YYYY"
+                                                        formControlName="todate" [ngClass]="{'form-control': true,
+                                                        'is-invalid': todate.invalid && todate.touched,
+                                                        'is-valid': todate.valid}" bsDatepicker>
+                                                    <small id="fnHelp" *ngIf="todate.invalid && todate.touched"
+                                                        class="form-text custom-invalid-feedback"
+                                                        style="color: red;">Field is
+                                                        required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <div class=" d-md-flex mg-b-30">
+                                <div class="wd-auto">
+                                    <div id="slWrapper2" class="parsley-select  mg-t-0  ">
+
+                                        <label>Period <span class="tx-danger">*</span></label><br>
+                                        <select class="form-control" formControlName="period" [ngClass]="{'form-control': true,
+                                        'is-invalid': period.invalid && period.touched,
+                                        'is-valid': period.valid}">
+                                            <option label=""> choose</option>
+                                            <option value="1 Week">1 Week</option>
+                                            <option value="2 Weeks">2 Weeks</option>
+                                            <option value="3 Weeks">3 Weeks</option>
+                                            <option value="4 Weeks">4 Weeks</option>
+                                            <option value="5 Weeks">5 Weeks</option>
+                                            <option value="6 Weeks">6 Weeks</option>
+                                            <option value="7 Weeks">7 Weeks</option>
+                                            <option value="8 Weeks">8 Weeks</option>
+                                            <option value="9 Weeks">9 Weeks</option>
+                                            <option value="10 Weeks">10 Weeks</option>
+                                        </select>
+                                        <small id="fnHelp" *ngIf="period.invalid && period.touched"
+                                            class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                            required</small>
+                                    </div>
+                                    <div id="slErrorContainer2"></div>
+                                </div>
+                                <div class="form-group mg-b-0 mg-md-l-20 mg-t-20 mg-md-t-0 wd-auto ">
+                                    <label>Current weight <span class="tx-danger">*</span></label>
+                                    <input type="text" name="weight" class="form-control" formControlName="weight"
+                                        [ngClass]="{'form-control': true,
+                                    'is-invalid': weight.invalid && weight.touched,
+                                    'is-valid': weight.valid}" placeholder="Enter your current weight" required="">
+                                    <small id="fnHelp" *ngIf="weight.invalid && weight.touched"
+                                        class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                        required</small>
+                                </div>
+                            </div>
+
+                            <!-- schedule type-->
+                            <!-- <p class="mg-b-10">Select Schedule Type : <span class="tx-danger">*</span></p>
+                            <label class="rdiobox">
+                                <input name="rdio" type="radio"> <span>One day schedule</span>
+                            </label>
+                            <label class="rdiobox">
+                                <input name="rdio" type="radio"> <span>Tow day schedule</span>
+                            </label> -->
+                        </div><!-- form-layout -->
+                    </div>
+
+                    <!-- start course details form  -->
+
+                    <div class="form-layout form-layout-5 mg-l-1 mg-t-5 col-xl-6 col-md-6 col-sm-12 col-xs-12">
+                        <h6 class="br-section-label">Make the Schedule</h6>
+                        <p class="br-section-text">please find your workouts.</p>
+
+                        <div class="mg-b-20">
+                            <div class="form-group mg-b-0">
+                                <label>Search workOuts :<span class="tx-danger"></span></label>
+                                <div class="row">
+                                    <div class="col-md-12 input-group mb-3">
+                                        <select class="form-control" #workout>
+                                            <option *ngFor="let workout of workoutsList"
+                                                value="{{workout.workoutname}}">{{workout.workoutname}}</option>
+                                            <!-- <option value="Bench press">Bench press</option>
+                                            <option value="Incline press">Incline press</option>
+                                            <option value="Barbel curlWaruna">Barbel curl</option>
+                                            <option value="Calves">Calves</option>
+                                            <option value="Hamer Curl">Hamer Curl</option> -->
+                                        </select>
+
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-primary" ngbTooltip="Add to Schedule"
+                                                title="Add this workout to the Schedule!"
+                                                (click)="addNewWorkout(workout.value)">
+                                                Add to List
+                                            </button>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+                                <!-- schedule -->
+                                <div formArrayName="schedule">
+                                    <div
+                                        *ngFor="let workout of createScheduleForm.get('schedule').controls; let i=index">
+                                        <fieldset>
+                                            <legend>
+                                                <h4>
+                                                    <!-- City {{i+1}}: -->
+
+                                                </h4>
+                                            </legend>
+                                            <div [formGroupName]="i">
+                                                <div class="">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <!-- workout name -->
+                                                            <div class="col-md-5 col-sm-6 col-xs-6">
+                                                                <!-- <label style="margin-right:10px;" class="col-form-label" for="city">City</label> -->
+                                                                <input type="text" class="form-control" id="workout"
+                                                                    style="border-top: none;border-right: none;border-left: none;background-color: transparent;"
+                                                                    readonly placeholder="workout" name="type"
+                                                                    formControlName="workout" required value="workout">
+                                                            </div>
+
+                                                            <!-- reps -->
+                                                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                                                <input type="text" class="form-control" id="reps"
+                                                                    placeholder="Reps" formControlName="reps" required>
+                                                            </div>
+
+                                                            <!-- day -->
+                                                            <!-- <div class="col-md-2">
+                                                                <input id="day1" type="radio" class="form-control"
+                                                                    value="day1" name="day">
+                                                                <label class="custom-control-label"
+                                                                    for="day1">Day1</label>
+                                                            </div> -->
+                                                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                                                <select class="form-control" formControlName="forday">
+                                                                    <option value="Day 1">Day 1</option>
+                                                                    <option value="Day 2">Day 2</option>
+                                                                </select>
+                                                                <!-- <div>
+                                                                    <label class="rdiobox">
+                                                                        <input name="forday" formControlName="forday"
+                                                                            type="radio" value="Day 1"> <span>Day
+                                                                            1</span>
+                                                                    </label>
+                                                                    <label class="rdiobox">
+                                                                        <input name="forday" formControlName="forday"
+                                                                            type="radio" value="Day 2"> <span>Day
+                                                                            2</span>
+                                                                    </label>
+                                                                </div> -->
+
+                                                            </div>
+                                                            <!-- remove button -->
+                                                            <div class="col-md-1 col-sm-6 col-xs-6">
+                                                                <button type="button" class="btn btn-danger"
+                                                                    (click)="deleteWorkout(i)">
+                                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div><!-- end--all-form-layout -->
+                    <!--start form-layout-footer -->
+                    <div class="row mg-t-30 col-md-12">
+                        <div class="col-sm-8 mg-l-auto">
+                            <div class="form-layout-footer ">
+                                <button class="btn btn-info" type="submit"
+                                    [disabled]="errorMsg || createScheduleForm.invalid">Submit Form</button>
+                                <span style="color: transparent;"> | </span>
+                                <button class="btn btn-secondary">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <pre>{{createScheduleForm.value | json}}</pre> -->
+
+                </div><!-- col-6 -->
+            </div>
+        </form>
+        <!--end white space-->
+    </div>
+</div>
+
+<script src="../../../../assets/js/jquery.min.js"></script>
+<script src="../../../../assets/js/datepicker.js"></script>
+<script src="../../../../assets/js/bootstrap.bundle.min.js"></script>
+<script src="../../../../assets/js/perfect-scrollbar.min.js"></script>
+<script src="../../../../assets/js/moment.min.js"></script>
+<script src="../../../../assets/js/jquery.peity.min.js"></script>
+<script src="../../../../assets/js/highlight.pack.min.js"></script>
+<script src="../../../../assets/js/select2.min.js"></script>
+<script src="../../../../assets/js/bracket.js"></script>

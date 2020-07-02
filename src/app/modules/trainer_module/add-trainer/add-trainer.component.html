@@ -1,0 +1,221 @@
+<!-- vendor css -->
+<link href="../../../../assets/css/all.min.css" rel="stylesheet">
+<link href="../../../../assets/css/ionicons.min.css" rel="stylesheet">
+<link href="../../../../assets/css/github.css" rel="stylesheet">
+<link href="../../../../assets/css/select2.min.css" rel="stylesheet">
+
+<!-- Bracket CSS -->
+<link rel="stylesheet" href="../../../../assets/css/theme_admin/bracket.css">
+
+<div class="br-mainpanel">
+    <div class="br-pageheader">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+            <a class="breadcrumb-item" routerLink="/">Home</a>
+            <a class="breadcrumb-item" href="#">Trainer</a>
+            <span class="breadcrumb-item active">Add Trainer</span>
+        </nav>
+    </div><!-- br-pageheader -->
+
+    <div class="br-pagetitle">
+        <i class="fa fa-book"></i>
+        <div>
+            <h4>Trainer Registration</h4>
+            <p class="mg-b-0">Forms are used to collect user information with different element types of input, select,
+                checkboxes, radios and more.</p>
+        </div>
+    </div><!-- d-flex -->
+
+    <form [formGroup]="addTrainerForm" (ngSubmit) = "saveTrainer(addTrainerForm.value)">
+        <div class="br-pagebody">
+            <!-- start forms-->
+            <div class="br-section-wrapper">
+                <!-- white space-->
+                <div class="row mg-t-0">
+                    <div class="col-xl-6">
+                        <!-- start member details form  -->
+                        <div class="form-layout form-layout-4">
+                            <h6 class="br-section-label">Trainer Details</h6>
+                            <p class="br-section-text">pleas enter your details for the registration.</p>
+
+                            <div class="form-group">
+                                <label class="form-control-label">Full Name: <span class="tx-danger">*</span></label>
+                                <input class="form-control wd-auto" type="text" formControlName="fullName" [ngClass]="{'form-control': true,
+                                'is-invalid': fullName.invalid && fullName.touched,
+                                'is-valid': fullName.valid}" placeholder="Enter fullname">
+                                <small id="fnHelp" *ngIf="fullName.invalid && fullName.touched"
+                                    class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                    required</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-control-label">First Name: <span class="tx-danger">*</span></label>
+                                <input class="form-control wd-auto" type="text" formControlName="firstName" [ngClass]="{'form-control': true,
+                                'is-invalid': firstName.invalid && firstName.touched,
+                                'is-valid': firstName.valid}" placeholder="Enter firstname">
+                                <small id="fnHelp" *ngIf="firstName.invalid && firstName.touched"
+                                    class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                    required</small>
+                            </div>
+
+                            <div class="form-group ">
+                                <label class="form-control-label">Last Name: <span class="tx-danger">*</span></label>
+                                <input class="form-control wd-auto" type="text" formControlName="lastName" [ngClass]="{'form-control': true,
+                                'is-invalid': lastName.invalid && lastName.touched,
+                                'is-valid': lastName.valid}" placeholder="Enter lastname">
+                                <small id="fnHelp" *ngIf="lastName.invalid && lastName.touched"
+                                    class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                    required</small>
+                            </div>
+
+                            <div class="d-md-flex mg-b-30">
+                                <div class="form-group mg-b-0">
+                                    <label>Telephone No: <span class="tx-danger">*</span></label>
+                                    <input type="text" formControlName="telephone1" [ngClass]="{'form-control': true,
+                                    'is-invalid': telephone1.invalid && telephone1.touched,
+                                    'is-valid': telephone1.valid}" class="form-control" placeholder="0xxxxxxxxx">
+                                    <small id="fnHelp" *ngIf="telephone1.invalid && telephone1.touched"
+                                        class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                        required</small>
+                                </div>
+                                <div class="form-group mg-b-0 mg-md-l-20 mg-t-20 mg-md-t-30">
+                                    <input type="text" formControlName="telephone2" class="form-control "
+                                        placeholder="0xxxxxxxxx">
+                                </div>
+                            </div>
+
+                            <div class="form-group ">
+                                <label class="form-control-label">Address: <span class="tx-danger">*</span></label>
+                                <input class="form-control wd-auto" type="text" formControlName="addressLine1"
+                                    [ngClass]="{'form-control': true,
+                                'is-invalid': addressLine1.invalid && addressLine1.touched,
+                                'is-valid': addressLine1.valid}" placeholder="Enter street">
+                                <small id="fnHelp" *ngIf="addressLine1.invalid && addressLine1.touched"
+                                    class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                    required</small>
+                            </div>
+                            <div class="d-md-flex mg-b-30">
+                                <div class="form-group mg-b-0">
+                                    <input type="text" formControlName="addressLine2" class="form-control"
+                                        placeholder="city">
+                                </div><!-- form-group -->
+                                <div class="form-group mg-b-0 mg-md-l-20 mg-t-20 mg-md-t-0">
+                                    <input type="text" formControlName="addressLine3" class="form-control"
+                                        placeholder="">
+                                </div><!-- form-group -->
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-control-label">Email Address: <span
+                                        class="tx-danger">*</span></label>
+                                <input class="form-control" type="text" formControlName="email" [ngClass]="{'form-control': true,
+                                'is-invalid': email.invalid && email.touched,
+                                'is-valid': email.valid}" placeholder="Enter email address">
+                                <small id="fnHelp" *ngIf="email.invalid && email.touched"
+                                    class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                    required</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-control-label">NIC No: <span class="tx-danger">*</span></label>
+                                <input class="form-control" type="text" formControlName="nic" [ngClass]="{'form-control': true,
+                                'is-invalid': nic.invalid && nic.touched,
+                                'is-valid': nic.valid}" placeholder="Enter national NIC no">
+                                <small id="fnHelp" *ngIf="nic.invalid && nic.touched"
+                                    class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                    required</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-control-label">Select User Account: <span
+                                        class="tx-danger">*</span></label>
+                                <select class="form-control" formControlName="userid">
+                                    <option *ngFor="let user of trainerUserNames" value="{{user.userid}}">
+                                        {{user.username}}</option>
+                                </select>
+                                <small id="fnHelp" *ngIf="userid.invalid && userid.touched"
+                                    class="form-text custom-invalid-feedback" style="color: red;">Please select the
+                                    account</small>
+                            </div>
+
+                            <div class="form-group row  col-md-12">
+                                <div class="col-md-4">
+                                    <p class="mg-b-10">Gender : <span class="tx-danger">*</span></p>
+                                    <label class="rdiobox">
+                                        <input type="radio" value="male" formControlName="gender"> <span>Male</span>
+                                    </label>
+                                    <label class="rdiobox">
+                                        <input type="radio" value="female" formControlName="gender"> <span>Female</span>
+                                    </label>
+                                    <small id="fnHelp" *ngIf="gender.invalid && gender.touched"
+                                        class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                        required</small>
+                                </div>
+                                <div class=" col-md-8">
+                                    <label class="form-control-label  mg-b-0 mg-md-l-20 mg-t-0 mg-md-t-0">Salary exp:
+                                        <span class="tx-danger"></span></label>
+                                    <div class="form-group mg-b-0 mg-md-l-20  mg-md-t-0 wd-auto">
+                                        <input type="text" formControlName="salary" class="form-control"
+                                            placeholder="Salary expectation">
+                                    </div><!-- form-group -->
+                                </div>
+                            </div>
+                        </div><!-- form-layout -->
+                    </div>
+
+                    <!-- start course details form  -->
+                    <div class="col-xl-6 mg-t-50 mg-xl-t-0">
+                        <div class="form-layout form-layout-5 ">
+                            <h6 class="br-section-label">select specification</h6>
+                            <div class="parsley-checkbox mg-b-0 "
+                                *ngFor="let control of specsArray.controls; let i = index;">
+
+                                <label class="ckbox" for="inlineCheckbox{{i}}">
+                                    <input type="checkbox" (change)="getSelectedSpecValue()" [formControl]="control"
+                                        id="inlineCheckbox{{i}}"> <span>{{specList[i]}}</span>
+                                </label>
+                                <small id="fnHelp" *ngIf="selectedSpecError && checkSpecControlsTouched()"
+                                    class="form-text custom-invalid-feedback" style="color: red;">Atleast choose
+                                    one</small>
+
+                                <!-- <label class="ckbox">
+                                <input type="checkbox" name="browser[]" value="2"><span>Yoga</span>
+                            </label>
+                            <label class="ckbox">
+                                <input type="checkbox" name="browser[]" value="3"><span>Zumba</span>
+                            </label> -->
+                            </div><!-- parsley-checkbox -->
+                        </div><!-- row -->
+                        <div class="row mg-t-20">
+                            <label class="form-control-label  mg-b-0 mg-md-l-20 mg-t-30 mg-md-t-30 ">Add profile
+                                picture: <span class="tx-danger">*</span></label>
+                            <img src="image/img5.jpg" class="img-fluid rounded wd-100 ht-100" alt="Profile pic">
+                        </div><!-- end--all-form-layout -->
+                    </div>
+                    <!--start form-layout-footer -->
+                    <div class="row mg-t-30 col-md-12">
+                        <div class="col-sm-8 mg-l-auto">
+                            <div class="form-layout-footer ">
+                                <button type="submit" [disabled]="selectedSpecError || addTrainerForm.invalid"
+                                    class="btn btn-info">Submit Form</button><span
+                                    style="color: transparent;"> | </span>
+                                <button type="reset" class="btn btn-secondary">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- col-6 -->
+            </div>
+            <!--end white space-->
+        </div>
+    </form>
+</div>
+
+<script src="../../../../assets/js/jquery.min.js"></script>
+<script src="../../../../assets/js/datepicker.js"></script>
+<script src="../../../../assets/js/bootstrap.bundle.min.js"></script>
+<script src="../../../../assets/js/perfect-scrollbar.min.js"></script>
+<script src="../../../../assets/js/moment.min.js"></script>
+<script src="../../../../assets/js/jquery.peity.min.js"></script>
+<script src="../../../../assets/js/highlight.pack.min.js"></script>
+<script src="../../../../assets/js/select2.min.js"></script>
+<script src="../../../../assets/js/bracket.js"></script>

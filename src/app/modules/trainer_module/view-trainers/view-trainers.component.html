@@ -1,0 +1,158 @@
+<!-- <link href="../../../../assets/css/all.min.css" rel="stylesheet"> -->
+<!-- <link href="../../../../assets/css/ionicons.min.css" rel="stylesheet"> -->
+<!-- <link href="../../../../assets/css/github.css" rel="stylesheet"> -->
+<!-- <link href="../../../../assets/css/select2.min.css" rel="stylesheet"> -->
+
+<!-- Bracket CSS -->
+<link rel="stylesheet" href="../../../../assets/css/theme_admin/bracket.css">
+
+<div class="br-mainpanel">
+    <div class="br-pageheader">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+            <a class="breadcrumb-item" routerLink="/">Home</a>
+            <a class="breadcrumb-item" href="#">Trainers</a>
+            <span class="breadcrumb-item active">Registered trainers</span>
+        </nav>
+    </div><!-- br-pageheader -->
+
+    <div class="br-pagetitle">
+        <i class="fa fa-book"></i>
+        <div>
+            <h4>Registered trainers</h4>
+            <p class="mg-b-0">Forms are used to collect user information with different element types of input, select,
+                checkboxes, radios and more.</p>
+        </div>
+    </div><!-- d-flex -->
+
+    <div class="br-pagebody">
+        <!-- start forms-->
+        <div class="br-section-wrapper">
+            <!-- white space-->
+            <div class="row  col-md-12">
+
+                
+
+                
+               
+            </div>
+
+            <div class="br-section-wrapper ">
+                <h6 class="br-section-label">Trainer Data Table</h6>
+                <p class="br-section-text"></p>
+
+                <div class="table-wrapper" data-select2-id="6">
+                    <div>
+
+                        <table class="table table-wrapper">
+                            <thead class="thead-light">
+                                <tr role="row">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Trainer Full Name</th>
+                                    <th scope="col">Telephone</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Status</th>
+                                    <!-- <th scope="col" style="background-color: rgb(212, 235, 245);">Edit</th> -->
+                                    <th scope="col" style="background-color: rgb(250, 206, 198);">Inactivate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let trainer of trainerList">
+                                    <td>{{trainer.trainerid}}</td>
+                                    <td>{{trainer.fullName}}</td>
+                                    <td>{{trainer.telephone1}}</td>
+                                    <td>{{trainer.addressLine1}}</td>
+                                    <td>{{trainer.status}}</td>
+                                    <!-- <td style="text-align: center;"><button class="btn btn-primary"
+                                            style="box-shadow: 3px 3px #120561"
+                                            (click)="openEditModal(editWorkoutModal, workout)"><i
+                                                class="fas fa-edit"></i></button></td> -->
+                                    <td style="text-align: center;"><button style="box-shadow: 3px 3px #460303"
+                                            (click)="openConfirmModal(inactiveTrainerModal,trainer.trainerid, trainer.fullName)"
+                                            class="btn btn-danger"><i class="far fa-trash-alt"></i></button></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- table-wrapper -->
+        </div>
+        <!--end white space-->
+    </div>
+    <!--white space closed-->
+</div>
+
+
+<!-- Update form -->
+<!-- <ng-template #editWorkoutModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Update workout</h5>
+        <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <form [formGroup]="updateWorkoutForm">
+            <div class="form-group row">
+                <div class="col-sm-8">
+                    <label class="form-control-label">Workout name<span class="tx-danger">*</span></label>
+                    <input class="form-control" type="text" formControlName="workoutname" placeholder="workout name">
+                    <input class="form-control" type="hidden" formControlName="workoutid">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-8">
+                    <label class="form-control-label">Other names <span class="tx-danger"></span></label>
+                    <input class="form-control" type="text" formControlName="othernames" placeholder="Other names">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-8">
+                    <label class="form-control-label">Affected to <span class="tx-danger">*</span></label>
+                    <input class="form-control" type="text" formControlName="effectto" placeholder=" Affected area">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" [disabled]="updateWorkoutForm.invalid"
+                    (click)="updateWorkout(updateWorkoutForm.value)"
+                    class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium">Save
+                    changes</button>
+                <button type="button" class="btn btn-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium"
+                    (click)="modal.dismiss()">Close</button>
+            </div>
+        </form>
+    </div>
+</ng-template> -->
+
+<!-- Delete confirmation -->
+<ng-template #inactiveTrainerModal let-modal>
+    <div class="modal-header" style="background-color: rgb(201, 74, 74);color: white;">
+        <i class="fas fa-exclamation-triangle"></i>
+        <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <form [formGroup]="updateTrainerForm">
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <label style="font-size: large;">Are you sure want to inactivate? <i class="fa fa-hand-o-right"
+                            style="font-size:24px"></i></label>
+                    <input type="text" style="border: none;font-weight: bolder;font-size: xx-large;"
+                        formControlName="trainername">
+                </div>
+                <input type="hidden" formControlName="trainerid">
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" (click)="inactivateTrainer(updateTrainerForm.value)"
+                    class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium">Yes, Inactivate</button>
+                <button type="button" class="btn btn-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium"
+                    (click)="modal.dismiss()">No, Wait</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

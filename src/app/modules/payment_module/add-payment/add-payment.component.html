@@ -1,0 +1,171 @@
+<!-- Bracket CSS -->
+<link rel="stylesheet" href="../../../../assets/css/theme_admin/bracket.css">
+
+<div class="br-mainpanel">
+    <div class="br-pageheader">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+            <a class="breadcrumb-item" href="/">Home</a>
+            <a class="breadcrumb-item" href="#">Payment</a>
+            <span class="breadcrumb-item active">Add Payment</span>
+        </nav>
+    </div><!-- br-pageheader -->
+
+    <div class="br-pagetitle">
+        <i class="fa fa-university"></i>
+        <div>
+            <h4>Make Payment</h4>
+            <p class="mg-b-0">Add member fees to the system here.</p>
+        </div>
+    </div><!-- d-flex -->
+
+    <div class="br-pagebody">
+        <!-- start forms-->
+        <div class="br-section-wrapper">
+            <!-- white space-->
+            <form [formGroup]="addPaymentForm" (ngSubmit)="savePayment(addPaymentForm.value)">
+                <div class="row">
+                    <div class="col-md-3 col-sm-2"></div>
+                    <div
+                        class="col-md-6 col-sm-8 login-wrapper wd-300 wd-xs-400 pd-25 pd-xs-40 bg-white rounded shadow-base">
+                        <div class="signin-logo tx-center tx-28 tx-bold tx-inverse"><span class="tx-normal"></span>
+                            Add<span class="tx-info"> Payment</span> <span class="tx-normal"></span></div>
+                        <div class="tx-center mg-b-40">Provide member fee details</div>
+
+                        <div class="form-group ">
+                            <div class="mg-b-10 ">
+                                <label>Select Member<span class="tx-danger">*</span></label>
+                                <div class="">
+                                    <div class="parsley-select  mg-t-0">
+                                        <select class="form-control" required #m (change)="findCourseDetails(m.value)"
+                                            formControlName="memberId" [ngClass]="{'form-control': true,
+                                        'is-invalid': memberId.invalid && memberId.touched,
+                                        'is-valid': memberId.valid}">
+                                            <option label="Member"></option>
+                                            <option *ngFor="let member of memberList" value="{{member.memberid}}">
+                                                {{member.fullName}}</option>
+
+                                        </select>
+                                        <small id="fnHelp" *ngIf="memberId.invalid && memberId.touched"
+                                            class="form-text custom-invalid-feedback" style="color: red;">Please Select
+                                            the Member</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <div class="mg-b-10 ">
+                                <label>Registered Courses<span class="tx-danger"></span></label>
+                                <div class="">
+                                    <div class="parsley-select  mg-t-0">
+                                        <ul class="list-group">
+                                            <!-- <li></li> -->
+                                            <li class="list-group-item list-group-item-action"
+                                                *ngFor="let course of courseDetails" style="font-size: small;">&raquo;
+                                                {{course.courseName}}</li>
+                                        </ul>
+                                        <!-- <select class="form-control" required>
+                                        <option label="Courses"></option>
+                                        <option *ngFor="let course of courseDetails" value="{{course.courseId}}">
+                                            {{course.courseName}}</option>
+                                    </select> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row mg-b-10">
+                                <div class="col-md-4">
+                                    <label>Net Fee (Rs) : </label>
+                                    <input type="text" class="form-control" value="{{netFee}}" disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Payment by :</label>
+                                    <input type="text" class="form-control" value="{{payby}}" disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Registered Date</label>
+                                    <input type="text" class="form-control" value="{{regDate}}" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mg-b-10">
+                            <a href=""><small>Payment history?</small></a>
+                        </div>
+                        <hr />
+
+                        <div class="form-group ">
+                            <div class="mg-b-10">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Select Month<span class="tx-danger">*</span></label>
+                                        <div class="parsley-select  mg-t-0">
+                                            <select class="form-control" required formControlName="forMonth" [ngClass]="{'form-control': true,
+                                            'is-invalid': forMonth.invalid && forMonth.touched,
+                                            'is-valid': forMonth.valid}">
+                                                <option value="January">January</option>
+                                                <option value="February">February</option>
+                                                <option value="March">March</option>
+                                                <option value="April">April</option>
+                                                <option value="May">May</option>
+                                                <option value="June">June</option>
+                                                <option value="July">July</option>
+                                                <option value="August">August</option>
+                                                <option value="September">September</option>
+                                                <option value="October">October</option>
+                                                <option value="November">November</option>
+                                                <option value="December">December</option>
+                                            </select>
+                                            <small id="fnHelp" *ngIf="forMonth.invalid && forMonth.touched"
+                                                class="form-text custom-invalid-feedback" style="color: red;">Please
+                                                Select
+                                                the Month</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Pay Amount<span class="tx-danger">*</span> </label>
+                                        <input type="text" class="form-control" formControlName="amount" [ngClass]="{'form-control': true,
+                                        'is-invalid': amount.invalid && amount.touched,
+                                        'is-valid': amount.valid}">
+
+                                        <small id="fnHelp" *ngIf="amount.invalid && amount.touched"
+                                            class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                            required</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="mg-b-10">
+                                <label>Comments</label>
+                                <input type="text" class="form-control" formControlName="status"
+                                    placeholder="Any Comments">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- <div class=""> -->
+                            <div class="col-md-2"> </div>
+                            <div class="col-md-8 row">
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-info btn-block ">Save Payment</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="reset" class="btn btn-secondary btn-block">Cancel</button>
+                                </div>
+                            </div>
+                            <div class="col-md-2"> </div>
+                            <!-- </div> -->
+
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-2"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
