@@ -28,7 +28,7 @@
     "angular-tooltips": "^1.2.2",
     "bootstrap": "^4.4.1",
     "bootstrap-scss": "^4.4.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "ng2-charts": "^2.3.0",
     "ngx-bootstrap": "^5.2.0",
     "ngx-perfect-scrollbar": "^8.0.0",
