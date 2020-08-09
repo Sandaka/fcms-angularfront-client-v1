@@ -18,4 +18,7 @@ export class MemberDetails {
     trainerid: number;
     payby: string;
     courseList: string[];
+    age: number;
+    userName: string;
+    password: string;
 }

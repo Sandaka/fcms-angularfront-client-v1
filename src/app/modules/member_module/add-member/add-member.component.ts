@@ -41,6 +41,9 @@ export class AddMemberComponent implements OnInit {
   resultText = [];
   values: string;
   count: number = 0;
+  fee: number;
+  enteredAge: number;
+  selectedCourse: Course;
 
   constructor(private addMemberService: AddMemberService, private formBuilder: FormBuilder, private toastr: ToastrService) { }
 
@@ -62,9 +65,11 @@ export class AddMemberComponent implements OnInit {
       nic: [null, [Validators.required, Validators.maxLength(10)]],
       gender: ['male', [Validators.required]],
       payby: [null, [Validators.required]],
-      userid: [null, [Validators.required]],
+      age: [null, [Validators.required]],
       trainerid: [null, [Validators.required]],
-      netFee: [null, [Validators.required]]
+      netFee: [null, [Validators.required]],
+      userName: [null, [Validators.required]],
+      password: [null, [Validators.required, Validators.minLength(6)]]
     });
 
     // select2
@@ -132,20 +137,43 @@ export class AddMemberComponent implements OnInit {
   }
 
 
-  checkBoxChange(courseName: string, event) {
+  checkBoxChange(course: Course, event) {
     this.errorMsg = false;
     const checked = event.target.checked;
+    console.log(course);
+    this.selectedCourse = course;
 
     if (checked) {
-      this.resultText.push(courseName);
+      this.resultText.push(course.coursename);
     } else {
-      const index = this.resultText.indexOf(courseName);
+      const index = this.resultText.indexOf(course.coursename);
       this.resultText.splice(index, 1);
     }
 
     this.values = this.resultText.toString();
     const count = this.resultText.length;
     this.count = count;
+  }
+
+  showFee(event: any) {
+    if (this.enteredAge > 19) {
+      if ("Annually" === event.target.value) {
+        this.fee = this.selectedCourse.adultAnnualFee;
+      } else {
+        this.fee = this.selectedCourse.adultMonthlyFee;
+      }
+    } else {
+      if ("Monthly" === event.target.value) {
+        this.fee = this.selectedCourse.studentMonthlyFee;
+      } else {
+        this.fee = this.selectedCourse.studentAnnualFee;
+      }
+    }
+
+  }
+  getAge(event: any) {
+    console.log("Age: " + event.target.value);
+    this.enteredAge = event.target.value;
   }
 
   saveMember(memberDetails: MemberDetails) {
@@ -214,9 +242,9 @@ export class AddMemberComponent implements OnInit {
   get payby() {
     return this.addMemberForm.get("payby");
   }
-  get userid() {
-    return this.addMemberForm.get("userid");
-  }
+  // get userid() {
+  //   return this.addMemberForm.get("userid");
+  // }
   get trainerid() {
     return this.addMemberForm.get("trainerid");
   }
@@ -224,7 +252,15 @@ export class AddMemberComponent implements OnInit {
   get netFee() {
     return this.addMemberForm.get("netFee");
   }
-
+  get age() {
+    return this.addMemberForm.get("age");
+  }
+  get userName() {
+    return this.addMemberForm.get("userName");
+  }
+  get password() {
+    return this.addMemberForm.get("password");
+  }
 
 
   // Toastr

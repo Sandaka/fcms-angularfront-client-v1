@@ -128,15 +128,17 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-control-label">Select User Account: <span
-                                        class="tx-danger">*</span></label>
-                                <select class="form-control" formControlName="userid">
+                                <label class="form-control-label">Age: <span class="tx-danger">*</span></label>
+                                <!-- <select class="form-control" formControlName="userid">
                                     <option *ngFor="let user of memberUserAccounts" value="{{user.userid}}">
                                         {{user.username}}</option>
-                                </select>
-                                <small id="fnHelp" *ngIf="userid.invalid && userid.touched"
-                                    class="form-text custom-invalid-feedback" style="color: red;">Please select the
-                                    account</small>
+                                </select> -->
+                                <input (keyup)="getAge($event)" class="form-control" type="text" formControlName="age" [ngClass]="{'form-control': true,
+                                    'is-invalid': age.invalid && age.touched,
+                                    'is-valid': age.valid}">
+                                <small id="fnHelp" *ngIf="age.invalid && age.touched"
+                                    class="form-text custom-invalid-feedback" style="color: red;">Please enter the
+                                    age</small>
                             </div>
 
                             <p class="mg-b-10">Gender : <span class="tx-danger">*</span></p>
@@ -174,7 +176,7 @@
                                     <div id="cbWrapper" class="parsley-checkbox col-md-2" style="margin-top: 2%;">
                                         <label class="ckbox">
                                             <input type="checkbox" value="{{course.courseid}}"
-                                                (change)="checkBoxChange(course.coursename,$event)"><span>{{course.coursename}}</span>
+                                                (change)="checkBoxChange(course,$event)"><span>{{course.coursename}}</span>
                                         </label>
 
                                         <small id="fnHelp" *ngIf="errorMsg" class="form-text custom-invalid-feedback"
@@ -221,9 +223,17 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
+                                        <label class="form-control-label" style="float: left;">Pay by<span
+                                                class="tx-danger">*</span></label>
+                                        <select (change)="showFee($event)" class="form-control" formControlName="payby">
+                                            <option value="Annually">Pay Annually</option>
+                                            <option value="Monthly">Pay Monthly</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
                                         <label class="form-control-label" style="float: left;">Net Fee <span
                                                 class="tx-danger">*</span></label>
-                                        <input class="form-control wd-auto" type="text" formControlName="netFee"
+                                        <input class="form-control wd-auto" type="text" formControlName="netFee" value="{{fee}}"
                                             [ngClass]="{'form-control': true,
                                 'is-invalid': netFee.invalid && netFee.touched,
                                 'is-valid': netFee.valid}" placeholder="Enter fee">
@@ -231,19 +241,47 @@
                                             class="form-text custom-invalid-feedback" style="color: red;">Field is
                                             required</small>
                                     </div>
-
-                                    <div class="col-md-6">
-                                        <label class="form-control-label" style="float: left;">Pay by<span
-                                                class="tx-danger">*</span></label>
-                                        <select class="form-control" formControlName="payby">
-                                            <option value="Annually">Pay Annually</option>
-                                            <option value="Monthly">Pay Monthly</option>
-                                        </select>
-                                    </div>
                                 </div>
                             </div>
 
                         </div><!-- row -->
+
+                        <!-- user account details form  -->
+                        <br />
+                        <div class="col-xl-12 mg-t-20 mg-xl-t-0">
+                            <div class="form-layout form-layout-5">
+                                <h6 class="br-section-label">User Account Details</h6>
+                                <div class="form-group" style="margin-top: 20px;">
+                                    <div class="row" style="margin-bottom: 20px;">
+                                        <div class="col-md-6">
+                                            <label class="form-control-label" style="float: left;">User Name
+                                                <span class="tx-danger">*</span></label>
+                                            <input class="form-control wd-auto" type="text" formControlName="userName"
+                                                [ngClass]="{'form-control': true,
+                                                'is-invalid': userName.invalid && userName.touched,
+                                                'is-valid': userName.valid}" placeholder="User Name">
+                                            <small id="fnHelp" *ngIf="userName.invalid && userName.touched"
+                                                class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                                required</small>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-control-label" style="float: left;">Password
+                                                <span class="tx-danger">*</span></label>
+                                            <input class="form-control wd-auto" type="password"
+                                                formControlName="password" [ngClass]="{'form-control': true,
+                                                'is-invalid': password.invalid && password.touched,
+                                                'is-valid': password.valid}" placeholder="******">
+                                            <small id="fnHelp" *ngIf="password.invalid && password.touched"
+                                                class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                                required</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div><!-- row -->
+                        </div>
+
                     </div><!-- end--all-form-layout -->
 
                     <!--start form-layout-footer -->
@@ -254,7 +292,7 @@
                                     class="btn btn-info">Submit
                                     Form</button> |
                                 <button class="btn btn-secondary" type="reset">Cancel</button>
-                                
+
                             </div>
                         </div>
                     </div>
