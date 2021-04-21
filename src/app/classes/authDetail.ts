@@ -3,4 +3,5 @@ export class AuthDetail {
     userRole: string;
     password: string;
     loginMessage: string;
+    userId: number;
 }

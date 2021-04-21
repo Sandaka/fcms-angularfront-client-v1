@@ -25,4 +25,8 @@ export class AddTrainerService {
   saveTrainerDetails(trainer: TrainerDetails): Observable<Object> {
     return this.http.post(`${this.trainerUrl}`, trainer);
   }
+
+  getAllUsers(): Observable<any> {
+    return this.http.get(`${this.userUrl}`);
+  }
 }

@@ -1,3 +1,5 @@
+import { Course } from "./course";
+
 export class MemberDetails {
     fullName: string;
     firstName: string;
@@ -17,7 +19,7 @@ export class MemberDetails {
     userid: number;
     trainerid: number;
     payby: string;
-    courseList: string[];
+    courseList: Course[];
     age: number;
     userName: string;
     password: string;

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AddTrainerService } from './add-trainer.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { TrainerSpec } from 'src/app/classes/trainerSpec';
-import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, FormControl, AsyncValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { User } from 'src/app/classes/user';
 import { Trainer } from 'src/app/classes/trainer';
 import { TrainerDetails } from 'src/app/classes/trainerDetails';
@@ -16,19 +16,21 @@ import { ToastrService } from 'ngx-toastr';
 export class AddTrainerComponent implements OnInit {
 
   // specList: Array<TrainerSpec[]>;
-  specList: Array<String> = ['Body Fitness', 'Yoga', 'Zumba']
+  specList: Array<String> = ['Body Fitness']
   // public specList: Array<string>;
   addTrainerForm: FormGroup;
   selectedSpecValues = [];
   selectedSpecError: Boolean = true;
 
-  trainerUserNames: Observable<User[]>;
+  existingUserList: User[];
+  existUser: User;
+  userNameExists: boolean = false;
   trainerDetails: TrainerDetails = new TrainerDetails();
 
   constructor(private addTrainerService: AddTrainerService, private formBuilder: FormBuilder, private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.getTrainerUserNames();
+    
     this.addTrainerForm = this.formBuilder.group({
       t_specs: this.addTrainerSpecControls(),
       fullName: [null, [Validators.required]],
@@ -43,8 +45,16 @@ export class AddTrainerComponent implements OnInit {
       nic: [null, [Validators.required, Validators.maxLength(10)]],
       gender: ['male', [Validators.required]],
       salary: [null],
-      userid: [null, [Validators.required]]
+      userName: [null, [Validators.required]],
+      password: [null, [Validators.required, Validators.minLength(6)]]
     });
+
+    this.addValidator();
+    this.initializeUserName();
+  }
+
+  addValidator() {
+    this.addTrainerForm.controls['userName'].setAsyncValidators([this.isValidName(), this.isValidNameNotInList()]);
   }
 
   getTrainerSpecsList() {
@@ -57,11 +67,47 @@ export class AddTrainerComponent implements OnInit {
     // return this.specList;
   }
 
-  getTrainerUserNames() {
-    this.addTrainerService.loadTrainerUserNames().subscribe(data => {
-      this.trainerUserNames = data;
+  initializeUserName() {
+    this.addTrainerService.getAllUsers().subscribe(data => {
+      this.existingUserList = data;
     });
+  }
 
+  isValidName(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors> => {
+      let bReturn: boolean = true;
+      if (this.addTrainerForm.controls['userName'].value == '') {
+        bReturn = false;
+      }
+      let err: ValidationErrors = { 'invalid': true };
+      return bReturn ? of(null) : of(err);
+    };
+  }
+
+  isValidNameNotInList(): AsyncValidatorFn {
+
+    return (control: AbstractControl): Observable<ValidationErrors> => {
+      let bReturn: boolean = true;
+
+      for (let i = 0; i < this.existingUserList.length; i++) {
+        this.existUser = this.existingUserList[i];
+        //console.log("existing users: " + this.addMemberForm.controls['userName'].value + " --> " + this.existUser.username);
+        if (this.addTrainerForm.controls['userName'].value == this.existUser.username) {
+          console.log("user names are equal...");
+          // this.existUserName = this.existUser.username
+          this.userNameExists = true;
+          break;
+        } else {
+          this.userNameExists = false;
+        }
+      }
+
+      if (this.userNameExists) {
+        bReturn = false;
+      }
+      let err: ValidationErrors = { 'exists': true };
+      return bReturn ? of(null) : of(err);
+    };
   }
 
   addTrainerSpecControls() {
@@ -107,6 +153,7 @@ export class AddTrainerComponent implements OnInit {
       console.log(data), error => console.log(error)
       if (data) {
         this.showSuccess();
+        this.addTrainerForm.reset();
       } else {
         this.showError();
       }
@@ -150,8 +197,12 @@ export class AddTrainerComponent implements OnInit {
     return this.addTrainerForm.get("email");
   }
 
-  get userid() {
-    return this.addTrainerForm.get("userid");
+  get userName() {
+    return this.addTrainerForm.get("userName");
+  }
+
+  get password() {
+    return this.addTrainerForm.get("password");
   }
 
 

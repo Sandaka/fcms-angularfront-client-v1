@@ -19,11 +19,16 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
   menus = [];
+
+  userName: any;
+
   constructor(public sidebarservice: SidebarService, public loginService: LoginService, private router: Router) {
     this.menus = sidebarservice.getMenuList();
   }
 
   ngOnInit() {
+
+    this.userName = sessionStorage.getItem("authenticatedUser");
   }
 
   // toggleSidebar() {
@@ -66,7 +71,7 @@ export class SidebarComponent implements OnInit {
 
   logoutAdmin() {
     this.router.navigate(['/login']);
-    return this.loginService.logout();    
+    return this.loginService.logout();
   }
 
 }

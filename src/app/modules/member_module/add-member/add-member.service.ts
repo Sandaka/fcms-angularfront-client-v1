@@ -31,4 +31,8 @@ export class AddMemberService {
   saveMemberDetails(memberDetails: MemberDetails): Observable<Object> {
     return this.http.post(`${this.memberUrl}`, memberDetails);
   }
+
+  getAllUsers(): Observable<any> {
+    return this.http.get(`${this.userUrl}`);
+  }
 }

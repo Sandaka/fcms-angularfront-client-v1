@@ -61,6 +61,9 @@ export class SidebarService {
         },
         {
           title: 'View Trainers',
+        },
+        {
+          title: 'Change Course'
         }
       ]
     },
@@ -95,6 +98,9 @@ export class SidebarService {
         },
         {
           title: 'Update Profile'
+        },
+        {
+          title: 'Change Password',
         }
       ]
     },
@@ -108,7 +114,7 @@ export class SidebarService {
           title: 'Add Guidelines',
         },
         {
-          title: 'Update Guidelines'
+          title: 'Approve Guidelines'
         }
       ]
     },
@@ -162,6 +168,9 @@ export class SidebarService {
       submenus: [
         {
           title: 'Make Payment',
+        },
+        {
+          title: 'Add Expenses',
         }
       ]
     }

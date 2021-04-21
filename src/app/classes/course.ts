@@ -5,4 +5,5 @@ export class Course{
     studentMonthlyFee: number;
     adultAnnualFee: number;
     studentAnnualFee: number;
+    selectedCourseFee: number;
 }

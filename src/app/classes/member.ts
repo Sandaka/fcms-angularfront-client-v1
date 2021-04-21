@@ -15,5 +15,5 @@ export class Member {
     status: string;
     lastEdit: string;
     userid: number;
-    trainerid: number;
+    trainerid: any;
 }

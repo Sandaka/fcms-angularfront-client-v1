@@ -1,0 +1,84 @@
+<!-- Bracket CSS -->
+<link rel="stylesheet" href="../../../../assets/css/theme_admin/bracket.css">
+
+<div class="br-mainpanel">
+    <div class="br-pageheader">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+            <a class="breadcrumb-item" routerLink="/">Home</a>
+            <a class="breadcrumb-item" href="#">Workout</a>
+            <span class="breadcrumb-item active">Follow Guideline</span>
+        </nav>
+    </div><!-- br-pageheader -->
+
+    <div class="br-pagetitle">
+        <i class="fa fa-book"></i>
+        <div>
+            <h4>Workout Guideline</h4>
+            <p class="mg-b-0">Find the workout guideline here you want</p>
+        </div>
+    </div><!-- d-flex -->
+
+    <div class="br-pagebody">
+        <!-- start forms-->
+        <div class="br-section-wrapper">
+            <!-- white space-->
+            <div class="row col-md-12">
+
+                <div class=" col-md-4 col-sm-12 ">
+                    <div class=" ">
+                        <div class="form-group">
+                            <label>Search Workout<span class="tx-danger"></span></label>
+                            <div class="">
+                                <select class="form-control" #workout (change)="getImagesByWorkout($event)">
+                                    <option *ngFor="let workout of workoutsList" value="{{workout.workoutid}}">
+                                        {{workout.workoutname}}</option>
+
+                                </select>
+                            </div><!-- col-4 -->
+
+                            <!-- <div class="control-section">
+                                <div id='content' style="margin: 0px auto; width:300px; padding-top: 40px;">
+                                    <ejs-dropdownlist id='diacritics' [dataSource]='data' [allowFiltering]='true' [ignoreAccent]='true' placeholder='Select a value'
+                                        filterBarPlaceholder='e.g: gul'>
+                                    </ejs-dropdownlist>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <!-- show Existing Guidelines -->
+            <div class="br-section-wrapper ">
+                <h6 class="br-section-label">Existing Guidelines</h6>
+                <p class="br-section-text"></p>
+
+                <div class="table-wrapper" data-select2-id="6">
+                    <div class="row">
+                        <div class="container row">
+                            <div class="col-md-12">
+                                <div *ngIf=retrievedImage>
+                                    <img [src]="retrievedImage" style="width: 900px;height: 600px;"><br />
+                                    <!-- <div class="row" *ngIf="loggedUserRole==='1'">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-4">
+                                                <button class="btn btn-danger"
+                                                    (click)="inactiveGuideline(guidelineId)">Inactive Guideline</button>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                        </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- table-wrapper -->
+        </div>
+        <!--end white space-->
+    </div>
+    <!--white space closed-->
+</div>

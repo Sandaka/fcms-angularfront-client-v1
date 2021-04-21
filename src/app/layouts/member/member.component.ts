@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MemberSidebarService } from 'src/app/shared/member/member-sidebar/member-sidebar.service';
 
 @Component({
   selector: 'app-member',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MemberComponent implements OnInit {
 
-  constructor() { }
+  constructor(private memberSidebarService: MemberSidebarService) { }
 
   ngOnInit() {
+  }
+
+  getSideBarState() {
+    return this.memberSidebarService.getSidebarState();
   }
 
 }

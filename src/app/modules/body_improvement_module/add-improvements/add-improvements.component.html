@@ -35,9 +35,10 @@
                             <div class="mg-b-30 ">
                                 <div class="form-group mg-b-0">
                                     <label>Select Member :<span class="tx-danger"></span></label>
-                                    <div class="">
-                                        <select class="form-control" formControlName="memberId" required #m
-                                            (change)="findSchedules(m.value)" [ngClass]="{'form-control': true,
+                                    <div class="" style="color: blue;">
+                                        <select *ngIf="loggedAs=='admin'" class="form-control"
+                                            formControlName="memberId" required #m (change)="findSchedules(m.value)"
+                                            [ngClass]="{'form-control': true,
                                         'is-invalid': memberId.invalid && memberId.touched,
                                         'is-valid': memberId.valid}">
                                             <option label="Member"></option>
@@ -45,6 +46,19 @@
                                                 {{member.full_name}}</option>
 
                                         </select>
+
+                                        <select *ngIf="loggedAs=='trainer'" class="form-control"
+                                            formControlName="memberId" required #m2 (change)="findSchedules(m2.value)"
+                                            [ngClass]="{'form-control': true,
+                                    'is-invalid': memberId.invalid && memberId.touched,
+                                    'is-valid': memberId.valid}">
+                                            <option label="Member"></option>
+                                            <option *ngFor="let member2 of trainerMemberList"
+                                                value="{{member2.memberid}}">
+                                                {{member2.full_name}}</option>
+
+                                        </select>
+
                                         <small id="fnHelp" *ngIf="memberId.invalid && memberId.touched"
                                             class="form-text custom-invalid-feedback" style="color: red;">Please Select
                                             the Member</small>
@@ -207,7 +221,9 @@
                                             <div class="mg-l-100">
                                                 <div class="form-layout-footer ">
                                                     <button class="btn btn-primary active" type="submit"
-                                                        [disabled]="addBodyImprovementsForm.invalid">Save form</button>
+                                                        [disabled]="addBodyImprovementsForm.invalid">Save
+                                                        form</button><span style="color: transparent;"> |
+                                                    </span>
                                                     <button class="btn btn-secondary" type="reset">Cancel</button>
                                                 </div>
                                             </div>

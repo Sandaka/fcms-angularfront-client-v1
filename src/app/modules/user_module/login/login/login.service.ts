@@ -11,16 +11,21 @@ export class LoginService {
 
   USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
   LOGGED_USER_ROLE = "userRole";
+  LOGGED_USER_ID = "userId";
+  LOGGED_MEMBER_ID = "memberId";
+  LOGGED_TRAINER_ID = "trainerId";
+
   public userName: string;
   public password: string;
   public userRole: string;
+  public userId: number;
 
-  private baseUrl = 'http://localhost:9090/fcms/v1/login';
+  private baseUrl = 'http://localhost:9090/fcms/v1';
 
   constructor(private http: HttpClient) { }
 
   authenticationService(userName: string, password: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}?userName=${userName}&password=${password}`, {
+    return this.http.post(`${this.baseUrl}/login?userName=${userName}&password=${password}`, {
       headers: { authorization: this.createBasicAuthToken(userName, password) }
     }).pipe(map((res) => {
       this.userName = userName;
@@ -33,25 +38,30 @@ export class LoginService {
     this.userName = userName;
     this.password = password;
     // this.registerSuccessfulLogin(userName, password);
-    return this.http.post(`${this.baseUrl}?userName=${userName}&password=${password}`, {});
+    return this.http.post(`${this.baseUrl}/login?userName=${userName}&password=${password}`, {});
   }
 
   createBasicAuthToken(userName: string, password: string) {
     return 'Basic ' + window.btoa(userName + ":" + password)
   }
 
-  registerSuccessfulLogin(userName, password, userRole) {
+  registerSuccessfulLogin(userName, password, userRole, userId) {
     sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, userName);
     sessionStorage.setItem(this.LOGGED_USER_ROLE, userRole);
-    console.log("Register user : " + this.USER_NAME_SESSION_ATTRIBUTE_NAME + "=" + userName + " role : " + userRole);
+    sessionStorage.setItem(this.LOGGED_USER_ID, userId);
+    console.log("Register user : " + this.USER_NAME_SESSION_ATTRIBUTE_NAME + "=" + userName + " role : " + userRole + "user Id: " + userId);
   }
 
   logout() {
     sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
     sessionStorage.removeItem(this.LOGGED_USER_ROLE);
+    sessionStorage.removeItem(this.LOGGED_USER_ID);
+    sessionStorage.removeItem(this.LOGGED_MEMBER_ID);
+    sessionStorage.removeItem(this.LOGGED_TRAINER_ID);
     this.userName = null;
     this.password = null;
     this.userRole = null;
+    this.userId = null;
     console.log("logout: " + this.userName);
   }
 
@@ -71,6 +81,12 @@ export class LoginService {
     let userRole = sessionStorage.getItem(this.LOGGED_USER_ROLE);
     if (null === userRole) return ''
     return userRole
+  }
+
+  getLoggedUserId() {
+    let userId = sessionStorage.getItem(this.LOGGED_USER_ID);
+    if (null === userId) return 0
+    return userId
   }
 
   roleMatch(allowedRoles): boolean {
@@ -104,5 +120,22 @@ export class LoginService {
     //   }
     // });
     return isMatch;
+  }
+
+  // to save member id in session
+  getMemberDetails(userId: any): Observable<any> {
+    return this.http.get(`${this.baseUrl}/memberByUserId/` + userId);
+  }
+
+  getTrainerDetails(userId: any): Observable<any> {
+    return this.http.get(`${this.baseUrl}/trainerByUserId/` + userId);
+  }
+
+  saveMemberIdInSession(memberId: any) {
+    sessionStorage.setItem(this.LOGGED_MEMBER_ID, memberId);
+  }
+
+  saveTrainerIdInSession(trainerrId: any) {
+    sessionStorage.setItem(this.LOGGED_TRAINER_ID, trainerrId);
   }
 }

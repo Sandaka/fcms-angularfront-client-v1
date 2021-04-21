@@ -5,4 +5,5 @@ export class User {
     status: string;
     lastEdit: string;
     userroleid: number;
+    userRoleName: string;
 }

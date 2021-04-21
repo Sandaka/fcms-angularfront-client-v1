@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AddMemberService } from './add-member.service';
 import { Course } from 'src/app/classes/course';
-import { Observable, Subscription } from 'rxjs';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { Observable, of, Subscription } from 'rxjs';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl, AsyncValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Trainer } from 'src/app/classes/trainer';
 import { User } from 'src/app/classes/user';
 import { MemberDetails } from 'src/app/classes/memberDetails';
@@ -19,6 +19,7 @@ export class AddMemberComponent implements OnInit {
 
   courseList: Observable<Course[]>;
   courseObj: Course[] = [];
+  selectedCourseList: Course[] = [];
 
   courseNameList: Array<String> = [];
   adultAnnualFeeList: Array<number> = [];
@@ -41,9 +42,15 @@ export class AddMemberComponent implements OnInit {
   resultText = [];
   values: string;
   count: number = 0;
-  fee: number;
+  fee: number = 0;
   enteredAge: number;
   selectedCourse: Course;
+  //netFee: number;
+
+  existingUserList: User[];
+  existUser: User;
+  userNameExists: boolean = false;
+
 
   constructor(private addMemberService: AddMemberService, private formBuilder: FormBuilder, private toastr: ToastrService) { }
 
@@ -67,13 +74,63 @@ export class AddMemberComponent implements OnInit {
       payby: [null, [Validators.required]],
       age: [null, [Validators.required]],
       trainerid: [null, [Validators.required]],
-      netFee: [null, [Validators.required]],
+      netFee: [null],
       userName: [null, [Validators.required]],
       password: [null, [Validators.required, Validators.minLength(6)]]
     });
 
+    this.addValidator();
+    this.initializeUserName();
+
     // select2
     // jquery('.js-example-basic-single').select2();
+  }
+
+  addValidator() {
+    this.addMemberForm.controls['userName'].setAsyncValidators([this.isValidName(), this.isValidNameNotInList()]);
+  }
+
+  isValidName(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors> => {
+      let bReturn: boolean = true;
+      if (this.addMemberForm.controls['userName'].value == '') {
+        bReturn = false;
+      }
+      let err: ValidationErrors = { 'invalid': true };
+      return bReturn ? of(null) : of(err);
+    };
+  }
+
+  initializeUserName() {
+    this.addMemberService.getAllUsers().subscribe(data => {
+      this.existingUserList = data;
+    });
+  }
+
+  isValidNameNotInList(): AsyncValidatorFn {
+
+    return (control: AbstractControl): Observable<ValidationErrors> => {
+      let bReturn: boolean = true;
+
+      for (let i = 0; i < this.existingUserList.length; i++) {
+        this.existUser = this.existingUserList[i];
+        //console.log("existing users: " + this.addMemberForm.controls['userName'].value + " --> " + this.existUser.username);
+        if (this.addMemberForm.controls['userName'].value == this.existUser.username) {
+          console.log("user names are equal...");
+          // this.existUserName = this.existUser.username
+          this.userNameExists = true;
+          break;
+        } else {
+          this.userNameExists = false;
+        }
+      }
+
+      if (this.userNameExists) {
+        bReturn = false;
+      }
+      let err: ValidationErrors = { 'exists': true };
+      return bReturn ? of(null) : of(err);
+    };
   }
 
   loadCourses() {
@@ -143,11 +200,20 @@ export class AddMemberComponent implements OnInit {
     console.log(course);
     this.selectedCourse = course;
 
+
+
     if (checked) {
       this.resultText.push(course.coursename);
+
+      this.courseObj.push(course);
+      console.log("adding to course arr: " + this.courseObj)
     } else {
       const index = this.resultText.indexOf(course.coursename);
       this.resultText.splice(index, 1);
+
+      const courseIdx = this.courseObj.indexOf(course);
+      this.courseObj.splice(courseIdx, 1);
+      console.log("removing from course arr: " + this.courseObj)
     }
 
     this.values = this.resultText.toString();
@@ -156,20 +222,75 @@ export class AddMemberComponent implements OnInit {
   }
 
   showFee(event: any) {
+    // if (this.enteredAge > 19) {
+    //   if ("Annually" === event.target.value) {
+    //     this.fee = this.selectedCourse.adultAnnualFee;
+    //   } else {
+    //     this.fee = this.selectedCourse.adultMonthlyFee;
+    //   }
+    // } else {
+    //   if ("Monthly" === event.target.value) {
+    //     this.fee = this.selectedCourse.studentMonthlyFee;
+    //   } else {
+    //     this.fee = this.selectedCourse.studentAnnualFee;
+    //   }
+    // }
+
+    this.fee = 0;
+    this.selectedCourseList = [];
+
     if (this.enteredAge > 19) {
       if ("Annually" === event.target.value) {
-        this.fee = this.selectedCourse.adultAnnualFee;
+        this.courseObj.forEach(element => {
+          let course: Course = element;
+          this.fee = this.fee + course.adultAnnualFee;
+
+          let selectedCourseFee: number = course.adultAnnualFee;
+          course.selectedCourseFee = selectedCourseFee;
+          this.selectedCourseList.push(course);
+          console.log(selectedCourseFee);
+        });
       } else {
-        this.fee = this.selectedCourse.adultMonthlyFee;
+        this.courseObj.forEach(element => {
+          let course: Course = element;
+          this.fee = this.fee + course.adultMonthlyFee;
+
+          let selectedCourseFee: number = course.adultMonthlyFee;
+          course.selectedCourseFee = selectedCourseFee;
+          this.selectedCourseList.push(course);
+          console.log(selectedCourseFee);
+
+          console.log(this.fee);
+        });
       }
     } else {
       if ("Monthly" === event.target.value) {
-        this.fee = this.selectedCourse.studentMonthlyFee;
+        this.courseObj.forEach(element => {
+          let course: Course = element;
+          this.fee = this.fee + course.studentMonthlyFee;
+
+          let selectedCourseFee: number = course.studentMonthlyFee;
+          course.selectedCourseFee = selectedCourseFee;
+          this.selectedCourseList.push(course);
+          console.log(selectedCourseFee);
+          console.log(this.fee);
+        });
       } else {
-        this.fee = this.selectedCourse.studentAnnualFee;
+        this.courseObj.forEach(element => {
+          let course: Course = element;
+          this.fee = this.fee + course.studentAnnualFee;
+
+          let selectedCourseFee: number = course.studentAnnualFee;
+          course.selectedCourseFee = selectedCourseFee;
+          this.selectedCourseList.push(course);
+          console.log(selectedCourseFee);
+          console.log(this.fee);
+        });
       }
     }
 
+    console.log("---------------------------------")
+    console.log(this.selectedCourseList);
   }
   getAge(event: any) {
     console.log("Age: " + event.target.value);
@@ -186,12 +307,16 @@ export class AddMemberComponent implements OnInit {
       console.log(this.resultText);
       this.count = courseCount;
       memberDetails.lastEdit = sessionStorage.getItem('authenticatedUser');
-      memberDetails.courseList = this.resultText;
+      memberDetails.courseList = this.selectedCourseList;
+      memberDetails.netFee = this.fee + "";
+
+      console.log("net fee: " + memberDetails.netFee)
 
       this.addMemberService.saveMemberDetails(memberDetails).subscribe(data => {
         console.log(data), error => console.log(error)
         if (data) {
           this.showSuccess();
+          this.addMemberForm.reset();
         } else {
           this.showError();
         }

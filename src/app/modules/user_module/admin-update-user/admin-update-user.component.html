@@ -1,0 +1,150 @@
+<!-- Bracket CSS -->
+<link rel="stylesheet" href="../../../../assets/css/theme_admin/bracket.css">
+
+<div class="br-mainpanel">
+    <div class="br-pageheader">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+            <a class="breadcrumb-item" routerLink="/">Home</a>
+            <a class="breadcrumb-item" href="#">User</a>
+            <span class="breadcrumb-item active">Update User</span>
+        </nav>
+    </div><!-- br-pageheader -->
+
+    <div class="br-pagetitle">
+        <i class="fa fa-book"></i>
+        <div>
+            <h4>Update User Details</h4>
+            <p class="mg-b-0">Forms are used to collect user information with different element types of input, select,
+                checkboxes, radios and more.</p>
+        </div>
+    </div><!-- d-flex -->
+
+    <div class="br-pagebody">
+        <!-- start forms-->
+        <div class="br-section-wrapper">
+            <!-- white space-->
+            <div class="row  col-md-12">
+
+                <div class=" col-md-4 col-sm-12 ">
+                    <div class=" ">
+                        <div class="form-group">
+                            <label>Search Users<span class="tx-danger"></span></label>
+                            <div class="">
+                                <select class="form-control select2-show-search   "
+                                    data-placeholder="Choose one (with searchbox)">
+                                    <option label="Choose one"></option>
+                                    <option value="">User 1</option>
+                                </select>
+                            </div><!-- col-4 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="br-section-wrapper ">
+                <h6 class="br-section-label">User Data Table</h6>
+                <p class="br-section-text"></p>
+
+                <div class="table-wrapper" data-select2-id="6">
+                    <div>
+                        <table class="table table-wrapper">
+                            <thead class="thead-light">
+                                <tr role="row">
+                                    <th scope="col">#</th>
+                                    <th scope="col">User Name</th>
+                                    <th scope="col">User Role</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Last edit</th>
+                                    <th scope="col" style="background-color: rgb(151, 222, 253);">Edit</th>
+                                    <th scope="col" style="background-color: rgb(253, 110, 134);">Active/Inactive</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let user of usersList">
+                                    <td>{{user.userid}}</td>
+                                    <td>{{user.username}}</td>
+                                    <td>{{user.userRoleName}}</td>
+                                    <td>{{user.status}}</td>
+                                    <td>{{user.lastEdit}}</td>
+                                    <td style="text-align: center;"><button class="btn btn-primary"
+                                            style="box-shadow: 3px 3px #120561"
+                                            (click)="openEditModal(adminEditUserModal, user)"><i
+                                                class="fas fa-edit"></i></button></td>
+                                    <td style="text-align: center;">
+                                        <button class="btn btn-warning" *ngIf="user.status=='active'"
+                                            style="box-shadow: 3px 3px #a0073a">inactivate</button>
+
+                                        <button class="btn btn-success" *ngIf="user.status=='inactive'"
+                                            style="box-shadow: 3px 3px #0a8a6a">activate</button>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- table-wrapper -->
+        </div>
+        <!--end white space-->
+    </div>
+    <!--white space closed-->
+</div>
+
+
+<!-- Update form -->
+<ng-template #adminEditUserModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Update User</h5>
+        <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <form [formGroup]="adminUpdateUserForm">
+            <div class="form-group row">
+                <div class="col-sm-8">
+                    <label class="form-control-label">User name<span class="tx-danger">*</span></label>
+                    <input class="form-control" type="text" formControlName="username" placeholder="">
+                    <input class="form-control" type="hidden" formControlName="userid">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-8">
+                    <label class="form-control-label">Password<span class="tx-danger"></span></label>
+                    <input class="form-control" type="text" formControlName="password" placeholder="">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-8">
+                    <label class="form-control-label">User Role<span class="tx-danger">*</span></label>
+                    <input class="form-control" type="text" formControlName="userRoleName" disabled placeholder="">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <!-- <input type="radio" value="test"> -->
+                <div class="col-sm-6">
+                    <label class="form-control-label">Active</label>
+                    <input [checked]="status==='active'? 'true' : 'false'" class="" type="radio" id="status_active"
+                        name="status" value="active" formControlName="status">
+                </div>
+                <!-- <div class="col-sm-6">
+                    <label class="form-control-label">Inactive</label>
+                    <input [checked]="status=='inactive'? 'true' : 'false'" class="" type="radio" id="status_inactive" name="status"
+                        value="inactive" formControlName="status">
+                </div> -->
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" [disabled]="adminUpdateUserForm.invalid"
+                    (click)="adminUpdateUser(adminUpdateUserForm.value)"
+                    class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium">Save
+                    changes</button>
+                <button type="button" class="btn btn-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium"
+                    (click)="modal.dismiss()">Close</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

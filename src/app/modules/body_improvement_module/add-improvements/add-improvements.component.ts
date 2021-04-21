@@ -22,6 +22,9 @@ export class AddImprovementsComponent implements OnInit {
   memberList: Observable<MemberForSchedule[]>;
   courseDetails: Observable<MemberCourseDetails[]>;
   scheduleList: Observable<MemberScheduleDetail[]>;
+  trainerMemberList: Observable<MemberForSchedule[]>;
+  loggedTrainerId: any;
+  loggedAs: any;
 
   addBodyImprovementsForm: FormGroup;
 
@@ -43,9 +46,21 @@ export class AddImprovementsComponent implements OnInit {
   }
 
   loadMembers() {
-    this.createScheduleService.getAllMembers().subscribe(data => {
-      this.memberList = data;
-    });
+    console.log("role: "+sessionStorage.getItem("userRole"))
+    if (sessionStorage.getItem("userRole") === "2") {
+      this.loggedAs = 'trainer'
+      this.loggedTrainerId = sessionStorage.getItem("trainerId");
+      console.log("role: "+sessionStorage.getItem("userRole")+" "+this.loggedTrainerId)
+      this.addImprovementService.getAssgnedMembers(this.loggedTrainerId).subscribe(data => {
+        this.trainerMemberList = data;
+      });
+    } else {
+      this.loggedAs = 'admin'
+      this.createScheduleService.getAllMembers().subscribe(data => {
+        this.memberList = data;
+      });
+    }
+
   }
 
   findSchedules(memberId: number) {

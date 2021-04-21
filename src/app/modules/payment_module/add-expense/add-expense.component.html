@@ -1,0 +1,79 @@
+<!-- Bracket CSS -->
+<link rel="stylesheet" href="../../../../assets/css/theme_admin/bracket.css">
+
+<div class="br-mainpanel">
+    <div class="br-pageheader">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+            <a class="breadcrumb-item" href="/">Home</a>
+            <a class="breadcrumb-item" href="#">Payment</a>
+            <span class="breadcrumb-item active">Add Expense</span>
+        </nav>
+    </div><!-- br-pageheader -->
+
+    <div class="br-pagetitle">
+        <i class="fa fa-university"></i>
+        <div>
+            <h4>Save Expenses</h4>
+            <p class="mg-b-0">Add your expenses here to get a proper income report from Gym Coach.</p>
+        </div>
+    </div><!-- d-flex -->
+
+    <div class="br-pagebody">
+        <!-- start forms-->
+        <div class="br-section-wrapper">
+            <!-- white space-->
+            <form [formGroup]="addExpenseForm" (ngSubmit)="saveExpense(addExpenseForm.value)">
+                <div class="row">
+                    <div class="col-md-3 col-sm-2"></div>
+                    <div
+                        class="col-md-6 col-sm-8 login-wrapper wd-300 wd-xs-400 pd-25 pd-xs-40 bg-white rounded shadow-base">
+                        <div class="signin-logo tx-center tx-28 tx-bold tx-inverse"><span class="tx-normal"></span>
+                            Add<span class="tx-info"> Expense</span> <span class="tx-normal"></span></div>
+                        
+                        <div class="form-group">
+                            <div class="mg-b-10">
+                                <label class="form-control-label" style="float: left;">Amount
+                                    <span class="tx-danger">*</span></label>
+                                <input type="text" class="form-control" formControlName="amount" placeholder="0.00"
+                                    [ngClass]="{'form-control': true,
+                                    'is-invalid': amount.invalid && amount.touched,
+                                    'is-valid': amount.valid}" placeholder="0.00">
+                                <small id="fnHelp" *ngIf="amount.invalid && amount.touched"
+                                    class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                    required</small>
+                            </div>
+                            <div class="mg-b-10">
+                                <label class="form-control-label" style="float: left;">Description
+                                    <span class="tx-danger">*</span></label>
+                                <input type="text" class="form-control" formControlName="description" [ngClass]="{'form-control': true,
+                                    'is-invalid': description.invalid && description.touched,
+                                    'is-valid': description.valid}" placeholder="User Name">
+                                <small id="fnHelp" *ngIf="description.invalid && description.touched"
+                                    class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                    required</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- <div class=""> -->
+                            <div class="col-md-2"> </div>
+                            <div class="col-md-8 row">
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-info btn-block" [disabled]="selectedSpecError || addExpenseForm.invalid">Save Payment</button>
+                                </div>
+                                <!-- <span style="color: transparent;"> |</span> -->
+                                <div class="col-md-6">
+                                    <button type="reset" class="btn btn-secondary btn-block">Cancel</button>
+                                </div>
+                            </div>
+                            <div class="col-md-2"> </div>
+                            <!-- </div> -->
+
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-2"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

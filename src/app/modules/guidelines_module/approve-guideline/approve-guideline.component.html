@@ -1,0 +1,89 @@
+<!-- Bracket CSS -->
+<link rel="stylesheet" href="../../../../assets/css/theme_admin/bracket.css">
+
+<div class="br-mainpanel">
+    <div class="br-pageheader">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+            <a class="breadcrumb-item" routerLink="/">Home</a>
+            <a class="breadcrumb-item" href="#">Workout</a>
+            <span class="breadcrumb-item active">Approve Guideline</span>
+        </nav>
+    </div><!-- br-pageheader -->
+
+    <div class="br-pagetitle">
+        <i class="fa fa-book"></i>
+        <div>
+            <h4>Approve Workout Guidelines</h4>
+            <p class="mg-b-0">Click the approve button to publish it as a guideline</p>
+        </div>
+    </div><!-- d-flex -->
+
+    <div class="br-pagebody">
+
+        <!-- show Existing Guidelines -->
+        <div class="br-section-wrapper ">
+            <h6 class="br-section-label">Pending Guidelines</h6>
+            <p class="br-section-text"></p>
+
+            <div class="table-wrapper" data-select2-id="6">
+                <div class="row">
+
+                    <div class="col-md-6" *ngFor="let guideline of new_guidelineList">
+                        <img [src]="guideline.imagepath"
+                            style="width: 400px;height: 300px; margin-left: 20px; margin-top: 20px;">
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <button class="btn btn-success" (click)="approveGuideline(guideline.guidelineId)">Approve</button>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <hr />
+                    </div>
+                    <hr /><br />
+
+                    <!-- <div class="container row">
+                                <div class="col-md-12">
+                                    <div *ngIf=retrievedImage>
+                                        <img [src]="retrievedImage" style="width: 900px;height: 600px;"><br />
+                                        <div class="row" *ngIf="loggedUserRole==='1'">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-4">
+                                                <button class="btn btn-danger"
+                                                    (click)="inactiveGuideline(guidelineId)">Inactive Guideline</button>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                    <!-- <div class="col-md-4" *ngFor="let file of fileInfos | async">
+                                <img src="D:\From Documents\workspace-spring-tool-suite-4-4.1.0.RELEASE\fcms-springboot-server-v1\uploads\image.jpg"
+                                    alt="{{ file.name }}" style="width: 50px;height: 50px;" height="80px">
+                                <button class="btn btn-warning"><i class="fa fa-trash"></i></button>
+                            </div>
+                            <hr /><br />
+
+                            <div class="col-md-4">col 2</div>
+                            <hr /><br />
+                            <div class="col-md-4">col 3</div>
+                            <hr /><br />
+
+                            <div class="col-md-4">col 1</div>
+                            <hr /><br />
+                            <div class="col-md-4">col 2</div>
+                            <hr /><br />
+                            <div class="col-md-4">col 3</div>
+                            <hr /><br /> -->
+
+
+                </div>
+            </div>
+        </div>
+        <!-- table-wrapper -->
+
+    </div>
+
+    <!--white space closed-->
+</div>

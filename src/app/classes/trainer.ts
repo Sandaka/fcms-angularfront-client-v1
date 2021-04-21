@@ -1,5 +1,5 @@
 export class Trainer {
-    trainerid: number;
+    trainerid: any;
     fullName: string;
     firstName: string;
     lastName: string;

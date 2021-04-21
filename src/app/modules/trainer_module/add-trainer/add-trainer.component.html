@@ -25,7 +25,7 @@
         </div>
     </div><!-- d-flex -->
 
-    <form [formGroup]="addTrainerForm" (ngSubmit) = "saveTrainer(addTrainerForm.value)">
+    <form [formGroup]="addTrainerForm" (ngSubmit)="saveTrainer(addTrainerForm.value)">
         <div class="br-pagebody">
             <!-- start forms-->
             <div class="br-section-wrapper">
@@ -125,18 +125,6 @@
                                     required</small>
                             </div>
 
-                            <div class="form-group">
-                                <label class="form-control-label">Select User Account: <span
-                                        class="tx-danger">*</span></label>
-                                <select class="form-control" formControlName="userid">
-                                    <option *ngFor="let user of trainerUserNames" value="{{user.userid}}">
-                                        {{user.username}}</option>
-                                </select>
-                                <small id="fnHelp" *ngIf="userid.invalid && userid.touched"
-                                    class="form-text custom-invalid-feedback" style="color: red;">Please select the
-                                    account</small>
-                            </div>
-
                             <div class="form-group row  col-md-12">
                                 <div class="col-md-4">
                                     <p class="mg-b-10">Gender : <span class="tx-danger">*</span></p>
@@ -185,19 +173,63 @@
                             </label> -->
                             </div><!-- parsley-checkbox -->
                         </div><!-- row -->
-                        <div class="row mg-t-20">
+
+
+                        <!-- user account details form  -->
+                        <br />
+                        <div class="col-xl-12 mg-t-20 mg-xl-t-0">
+                            <div class="form-layout form-layout-5">
+                                <h6 class="br-section-label">User Account Details</h6>
+                                <div class="form-group" style="margin-top: 20px;">
+                                    <div class="row" style="margin-bottom: 20px;">
+                                        <div class="col-md-6">
+                                            <label class="form-control-label" style="float: left;">User Name
+                                                <span class="tx-danger">*</span></label>
+                                            <input class="form-control wd-auto" type="text" formControlName="userName"
+                                                [ngClass]="{'form-control': true,
+                                            'is-invalid': userName.invalid && userName.touched,
+                                            'is-valid': userName.valid}" placeholder="User Name">
+                                            <small id="fnHelp" *ngIf="userName.invalid && userName.touched"
+                                                class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                                required</small>
+
+                                            <small
+                                                *ngIf="addTrainerForm.get('userName').errors && addTrainerForm.get('userName').errors['exists']"
+                                                style="color:red;">Username not available!</small>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-control-label" style="float: left;">Password
+                                                <span class="tx-danger">*</span></label>
+                                            <input class="form-control wd-auto" type="password"
+                                                formControlName="password" [ngClass]="{'form-control': true,
+                                            'is-invalid': password.invalid && password.touched,
+                                            'is-valid': password.valid}" placeholder="******">
+                                            <small id="fnHelp" *ngIf="password.invalid && password.touched"
+                                                class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                                required</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div><!-- row -->
+                        </div>
+
+
+                        <!-- <div class="row mg-t-20">
                             <label class="form-control-label  mg-b-0 mg-md-l-20 mg-t-30 mg-md-t-30 ">Add profile
                                 picture: <span class="tx-danger">*</span></label>
                             <img src="image/img5.jpg" class="img-fluid rounded wd-100 ht-100" alt="Profile pic">
-                        </div><!-- end--all-form-layout -->
+                        </div> -->
                     </div>
+
                     <!--start form-layout-footer -->
                     <div class="row mg-t-30 col-md-12">
                         <div class="col-sm-8 mg-l-auto">
                             <div class="form-layout-footer ">
                                 <button type="submit" [disabled]="selectedSpecError || addTrainerForm.invalid"
-                                    class="btn btn-info">Submit Form</button><span
-                                    style="color: transparent;"> | </span>
+                                    class="btn btn-info">Submit Form</button><span style="color: transparent;"> |
+                                </span>
                                 <button type="reset" class="btn btn-secondary">Cancel</button>
                             </div>
                         </div>

@@ -15,5 +15,6 @@ export class TrainerDetails {
     status: string;
     lastEdit: string;
     specialityList: string[];
-    userid: number;
+    userName: string;
+    password: string;
 }

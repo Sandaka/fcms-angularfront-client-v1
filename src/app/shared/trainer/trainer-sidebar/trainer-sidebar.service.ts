@@ -33,7 +33,7 @@ export class TrainerSidebarService {
           title: 'BI Report'
         },
         {
-          title: 'Create Workout'
+          title: 'View Schedule'
         },
         {
           title: 'Create Schedule'
@@ -86,9 +86,9 @@ export class TrainerSidebarService {
       active: false,
       type: 'dropdown',
       submenus: [
-        // {
-        //   title: 'Create User',
-        // },
+        {
+          title: 'Change Password',
+        },
         {
           title: 'Update Profile'
         }
@@ -102,9 +102,6 @@ export class TrainerSidebarService {
       submenus: [
         {
           title: 'Add Guidelines',
-        },
-        {
-          title: 'Update Guidelines'
         }
       ]
     }

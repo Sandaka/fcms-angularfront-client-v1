@@ -40,11 +40,28 @@
                             <div class="mg-b-30 ">
                                 <div class="form-group mg-b-0">
                                     <label>Select Member :<span class="tx-danger"></span></label>
-                                    <div class="">
+                                    <div *ngIf="loggedAs=='admin'">
                                         <select class="form-control" formControlName="memberregid" [ngClass]="{'form-control': true,
                                         'is-invalid': memberregid.invalid && memberregid.touched,
                                         'is-valid': memberregid.valid}">
+                                            <option>Select Member</option>
                                             <option *ngFor="let member of memberList" value="{{member.memberregid}}">
+                                                {{member.full_name}}</option>
+
+                                        </select>
+                                        <small id="fnHelp" *ngIf="memberregid.invalid && memberregid.touched"
+                                            class="form-text custom-invalid-feedback" style="color: red;">Please select
+                                            the
+                                            member</small>
+                                    </div>
+
+                                    <div *ngIf="loggedAs=='trainer'">
+                                        <select class="form-control" formControlName="memberregid" [ngClass]="{'form-control': true,
+                                        'is-invalid': memberregid.invalid && memberregid.touched,
+                                        'is-valid': memberregid.valid}">
+                                            <option>Select Member</option>
+                                            <option *ngFor="let member of trainerMemberList"
+                                                value="{{member.memberregid}}">
                                                 {{member.full_name}}</option>
 
                                         </select>

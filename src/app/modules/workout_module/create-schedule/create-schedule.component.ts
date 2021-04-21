@@ -21,6 +21,10 @@ export class CreateScheduleComponent implements OnInit {
   scheduleDetails: ScheduleDetails;
   workoutsList: Observable<Workout[]>;
 
+  trainerMemberList: Observable<MemberForSchedule[]>;
+  loggedTrainerId: any;
+  loggedAs: any;
+
   data = {
     schedule: [
       {
@@ -57,9 +61,26 @@ export class CreateScheduleComponent implements OnInit {
   }
 
   loadMembers() {
-    this.createScheduleService.getAllMembers().subscribe(data => {
-      this.memberList = data;
-    });
+
+    console.log("role: " + sessionStorage.getItem("userRole"))
+    if (sessionStorage.getItem("userRole") === "2") {
+      this.loggedAs = 'trainer'
+      this.loggedTrainerId = sessionStorage.getItem("trainerId");
+      console.log("role: " + sessionStorage.getItem("userRole") + " " + this.loggedTrainerId)
+      this.createScheduleService.getAssgnedMembers(this.loggedTrainerId).subscribe(data => {
+        this.trainerMemberList = data;
+        console.log(this.trainerMemberList)
+      });
+    } else {
+      this.loggedAs = 'admin'
+      this.createScheduleService.getAllMembers().subscribe(data => {
+        this.memberList = data;
+      });
+    }
+
+    // this.createScheduleService.getAllMembers().subscribe(data => {
+    //   this.memberList = data;
+    // });
   }
 
 

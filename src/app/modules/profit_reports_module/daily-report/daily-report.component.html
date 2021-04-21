@@ -1,0 +1,114 @@
+<!-- Bracket CSS -->
+<link rel="stylesheet" href="../../../../assets/css/theme_admin/bracket.css">
+<link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
+
+<div class="br-mainpanel">
+    <div class="br-pageheader">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+            <a class="breadcrumb-item" href="/">Home</a>
+            <a class="breadcrumb-item" href="#">profit</a>
+            <span class="breadcrumb-item active">Daily Report</span>
+        </nav>
+    </div><!-- br-pageheader -->
+
+    <div class="br-pagetitle">
+        <i class="fa fa-file"></i>
+        <div>
+            <h4>Daily Report</h4>
+            <p class="mg-b-0">Please refresh the button</p>
+        </div>
+    </div><!-- d-flex -->
+
+    <div class="br-pagebody">
+        
+            <!-- start forms-->
+            <div class="br-section-wrapper">
+                <!-- white space-->
+
+                <!-- <div class="d-md-flex mg-b-30 "> -->
+                    <div class="form-group mg-b-10 ">
+                        <div class="row">
+                            
+                            <div class="col-md-2">
+                                <!-- <div class="form-group mg-b-10  mg-t-20 mg-md-t-0"> -->
+                                <!-- <label style="color: transparent;">click</label> -->
+                                <button type="button" class="btn btn-info"
+                                    (click)="refreshDailyReport()">Refresh Report <i class="fa fa-spinner fa-spin"></i></button>
+                                <!-- </div> -->
+                            </div>
+                        </div>
+                    </div>
+                <!-- </div> -->
+
+
+
+                <div class="row">
+                    <div class="mg-t-10 col-md-6">
+                        <h6 class="br-section-label">Income Per Date</h6>
+                        <p class="br-section-text"></p>
+
+                        <div class="table-wrapper" data-select2-id="6">
+                            <div id="datatable1_wrapper" class="dataTables_wrapper no-footer"
+                                data-select2-id="datatable1_wrapper">
+
+                                <table class="table table-striped" style="width: auto;">
+                                    <thead class="thead-light">
+                                        <tr role="row">
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Income per date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let income of incomeDataList">
+                                            <td>{{income.paymentDate}}</td>
+                                            <td>{{income.status}}</td>
+                                            <td style="text-align: right;">{{income.totalIncome}}.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div><!-- table-wrapper -->
+                    <div class="mg-t-10 col-md-6">
+                        <h6 class="br-section-label">expense Per Date</h6>
+                        <p class="br-section-text"></p>
+
+                        <div class="table-wrapper">
+                            <div id="datatable2_wrapper" class="dataTables_wrapper no-footer">
+                                <table class="table table-striped" style="width: auto;">
+                                    <thead class="thead-light">
+                                        <tr role="row">
+                                            <th>Date</th>
+                                            <th>Description</th>
+                                            <th>Expense per date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let expenses of expenseDataList">
+                                            <td>{{expenses.expenseDate}}</td>
+                                            <td>{{expenses.description}}</td>
+                                            <td style="text-align: right;">{{expenses.totalExpense}}.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row tx-18 mg-t-20">
+                    <div class="col-md-6">Total Income: <span style="font-weight: bold;">{{totalIncomeCal}}.00</span>
+                    </div>
+                    <div class="col-md-6">Total Expense: <span style="font-weight: bold;">{{totalExpenseCal}}.00</span>
+                    </div>
+                </div>
+                <div class="tx-28 mg-t-30">
+                    Total Profit (Rs.) : <span style="font-weight: bolder;">{{totalProfit}}.00</span>
+                </div>
+            </div>
+        
+        <!--end white space-->
+    </div>
+    <!--white space closed-->
+</div>

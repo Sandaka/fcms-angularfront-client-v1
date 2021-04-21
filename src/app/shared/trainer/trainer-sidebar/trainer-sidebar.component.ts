@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { TrainerSidebarService } from './trainer-sidebar.service';
+import { LoginService } from 'src/app/modules/user_module/login/login/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trainer-sidebar',
@@ -18,12 +20,14 @@ import { TrainerSidebarService } from './trainer-sidebar.service';
 export class TrainerSidebarComponent implements OnInit {
 
   menus = [];
+  userName: any;
 
-  constructor(public trainerSidebarService: TrainerSidebarService) {
+  constructor(public trainerSidebarService: TrainerSidebarService, public loginService: LoginService, private router: Router) {
     this.menus = trainerSidebarService.getMenuList();
   }
 
   ngOnInit() {
+    this.userName = sessionStorage.getItem("authenticatedUser");
   }
 
   getSideBarState() {
@@ -55,4 +59,8 @@ export class TrainerSidebarComponent implements OnInit {
     return this.trainerSidebarService.hasBackgroundImage;
   }
 
+  logoutTrainer() {
+    this.router.navigate(['/login']);
+    return this.loginService.logout();
+  }
 }

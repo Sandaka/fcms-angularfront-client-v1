@@ -1,0 +1,257 @@
+<!-- Bracket CSS -->
+<link rel="stylesheet" href="../../../../assets/css/theme_admin/bracket.css">
+
+<div class="br-mainpanel">
+    <div class="br-pageheader">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+            <a class="breadcrumb-item" href="/">Home</a>
+            <a class="breadcrumb-item" href="#">Schedule</a>
+            <span class="breadcrumb-item active">View Schedule</span>
+        </nav>
+    </div><!-- br-pageheader -->
+
+    <div class="br-pagetitle">
+        <i class="fa fa-university"></i>
+        <div>
+            <h4>View Schedules</h4>
+            <p class="mg-b-0">Please select the schedule.</p>
+        </div>
+    </div><!-- d-flex -->
+
+    <div class="br-pagebody">
+        <!-- start forms-->
+        <div class="br-section-wrapper">
+            <!-- white space-->
+            <form [formGroup]="memberViewScheduleForm">
+                <div class="row">
+                    <div class="col-md-3 col-sm-2"></div>
+                    <div
+                        class="col-md-6 col-sm-8 login-wrapper wd-300 wd-xs-400 pd-25 pd-xs-40 bg-white rounded shadow-base">
+                        <div class="signin-logo tx-center tx-28 tx-bold tx-inverse"><span class="tx-normal"></span>
+                            Your<span class="tx-info"> Schedules</span> <span class="tx-normal"></span></div>
+                        <!-- <div class="tx-center mg-b-40">Please select a member</div> -->
+
+                        <!-- <div class="form-group ">
+                            <div class="mg-b-10 ">
+                                <label>Select Member<span class="tx-danger">*</span></label>
+                                <div class="">
+                                    <div class="parsley-select  mg-t-0">
+                                        <select class="form-control" formControlName="memberId" required #m
+                                            (change)="findCourseDetailsAndSchedule(m.value)" [ngClass]="{'form-control': true,
+                                        'is-invalid': memberId.invalid && memberId.touched,
+                                        'is-valid': memberId.valid}">
+                                            <option label="Member"></option>
+                                            <option *ngFor="let member of memberList" value="{{member.memberid}}">
+                                                {{member.fullName}}</option>
+
+                                        </select>
+                                        <small id="fnHelp" *ngIf="memberId.invalid && memberId.touched"
+                                            class="form-text custom-invalid-feedback" style="color: red;">Please Select
+                                            the Member</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="form-group ">
+                            <div class="mg-b-10 ">
+                                <label>Registered Courses<span class="tx-danger"></span></label>
+                                <div class="">
+                                    <div class="parsley-select  mg-t-0">
+                                        <ul class="list-group">
+                                            <!-- <li></li> -->
+                                            <li class="list-group-item list-group-item-action"
+                                                *ngFor="let course of courseDetails" style="font-size: small;">&raquo;
+                                                {{course.courseName}}</li>
+                                        </ul>
+                                        <!-- <select class="form-control" required>
+                                        <option label="Courses"></option>
+                                        <option *ngFor="let course of courseDetails" value="{{course.courseId}}">
+                                            {{course.courseName}}</option>
+                                    </select> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="mg-b-10">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label>Select schedule number<span class="tx-danger">*</span></label>
+                                        <select class="form-control" formControlName="scheduleNumber" required
+                                            [ngClass]="{'form-control': true,
+                                        'is-invalid': scheduleNumber.invalid && scheduleNumber.touched,
+                                        'is-valid': scheduleNumber.valid}">
+                                            <option *ngFor="let schedule of scheduleList" [ngValue]="schedule">
+                                                {{schedule.scheduleNumber}}</option>
+                                        </select>
+                                        <small id="fnHelp" *ngIf="scheduleNumber.invalid && scheduleNumber.touched"
+                                            class="form-text custom-invalid-feedback" style="color: red;">Please Select
+                                            the Schedule</small>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label style="color: transparent;">btn</label>
+                                        <button type="button" class="btn btn-primary btn-block"
+                                            [disabled]="memberViewScheduleForm.invalid"
+                                            (click)="loadScedule(scheduleNumber.value,viewScheduleModal)">Load
+                                            Schedule</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- <div class="mg-b-10">
+                            <a href=""><small>Payment history?</small></a>
+                        </div>
+                        <hr /> -->
+
+                        <!-- <div class="form-group ">
+                            <div class="mg-b-10">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Select Month<span class="tx-danger">*</span></label>
+                                        <div class="parsley-select  mg-t-0">
+                                            <select class="form-control" required formControlName="forMonth" [ngClass]="{'form-control': true,
+                                            'is-invalid': forMonth.invalid && forMonth.touched,
+                                            'is-valid': forMonth.valid}">
+                                                <option value="January">January</option>
+                                                <option value="February">February</option>
+                                                <option value="March">March</option>
+                                                <option value="April">April</option>
+                                                <option value="May">May</option>
+                                                <option value="June">June</option>
+                                                <option value="July">July</option>
+                                                <option value="August">August</option>
+                                                <option value="September">September</option>
+                                                <option value="October">October</option>
+                                                <option value="November">November</option>
+                                                <option value="December">December</option>
+                                            </select>
+                                            <small id="fnHelp" *ngIf="forMonth.invalid && forMonth.touched"
+                                                class="form-text custom-invalid-feedback" style="color: red;">Please
+                                                Select
+                                                the Month</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Pay Amount<span class="tx-danger">*</span> </label>
+                                        <input type="text" class="form-control" formControlName="amount" [ngClass]="{'form-control': true,
+                                        'is-invalid': amount.invalid && amount.touched,
+                                        'is-valid': amount.valid}">
+
+                                        <small id="fnHelp" *ngIf="amount.invalid && amount.touched"
+                                            class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                            required</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="form-group">
+                            <div class="mg-b-10">
+                                <label>Comments</label>
+                                <input type="text" class="form-control" formControlName="status"
+                                    placeholder="Any Comments">
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="row">
+                        <div class=""> -->
+                        <!-- <div class="col-md-2"> </div>
+                        <div class="col-md-8 row">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-info btn-block ">Save Payment</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="reset" class="btn btn-secondary btn-block">Cancel</button>
+                            </div>
+                        </div>
+                        <div class="col-md-2"> </div> -->
+                        <!-- </div> -->
+
+                        <!-- </div> -->
+                    </div>
+                    <div class="col-md-3 col-sm-2"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #viewScheduleModal let-modal>
+    <div class="modal-header" style="background-color: rgb(68, 3, 6);color: white;font-weight: bolder;">
+        <h5 class="modal-title">{{selected_memberName}}'s Schedule!</h5>
+        <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-5">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Member Name :</td>
+                            <td>{{selected_memberName}}</td>
+                        </tr>
+                        <tr>
+                            <td>Member ID : </td>
+                            <td>{{selected_memberId}}</td>
+                        </tr>
+                        <tr>
+                            <td>Weight : </td>
+                            <td>{{selected_memberWeight}}</td>
+                        </tr>
+                        <tr>
+                            <td>Schedule From : </td>
+                            <td>{{selected_scheduleFrom}}</td>
+                        </tr>
+                        <tr>
+                            <td>Schedule To : </td>
+                            <td>{{selected_scheduleTo}}</td>
+                        </tr>
+                        <tr>
+                            <td>Trainer : </td>
+                            <td>{{selected_trainer}}</td>
+                        </tr>
+                        <tr>
+                            <td>Issued by: </td>
+                            <td>{{selected_issuedby}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-7">
+                <table class="table table-wrapper" style="box-shadow: 5px 5px #dee0e0">
+                    <thead class="thead-light">
+                        <tr role="row">
+                            <th scope="col">Workout Name</th>
+                            <th scope="col">Reps</th>
+                            <th scope="col">Affected To</th>
+                            <th scope="col">Assigned for</th>
+                            <!-- <th scope="col">Quick guides</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let workout of workoutList">
+                            <td style="background-color: rgb(216, 251, 252); font-weight: bold;">{{workout.workoutName}}
+                            </td>
+                            <td style="background-color: rgb(195, 245, 247); font-weight: bold;">{{workout.reps}}</td>
+                            <td>{{workout.effectTo}}</td>
+                            <td style="background-color: rgb(250, 241, 228); font-weight: bold;">{{workout.scheduleFor}}
+                            </td>
+                            <!-- <td><a href="" routerLink='/admin/add_guideline'>how?</a></td> -->
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</ng-template>

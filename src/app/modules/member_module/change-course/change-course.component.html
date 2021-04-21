@@ -1,0 +1,283 @@
+<!-- vendor css -->
+<link href="../../../../assets/css/all.min.css" rel="stylesheet">
+<link href="../../../../assets/css/ionicons.min.css" rel="stylesheet">
+<link href="../../../../assets/css/github.css" rel="stylesheet">
+<link href="../../../../assets/css/select2.min.css" rel="stylesheet">
+
+<!-- Bracket CSS -->
+<link rel="stylesheet" href="../../../../assets/css/theme_admin/bracket.css">
+
+<div class="br-mainpanel">
+    <div class="br-pageheader">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+            <!-- <a href="#" class="btn btn-outline-secondary mr-1 mb-1" (click)="toggleSidebar()">Toggle Sidebar</a> -->
+            <a class="breadcrumb-item" href="#">Home</a>
+            <a class="breadcrumb-item" href="#">Member</a>
+            <span class="breadcrumb-item active">Change Course</span>
+        </nav>
+    </div><!-- br-pageheader -->
+    <!-- <div class="overlay" (click)="toggleSidebar()" [ngClass]="{'show' : !getSideBarState()}"></div> -->
+    <div class="br-pagetitle">
+        <i class="fa fa-book" aria-hidden="true"></i>
+        <div>
+            <h4>Change Course</h4>
+            <p class="mg-b-0">Forms are used to collect user information with different element types of input, select,
+                checkboxes, radios and more.</p>
+        </div>
+    </div><!-- d-flex -->
+
+    <div class="br-pagebody">
+        <!-- start forms-->
+        <div class="br-section-wrapper">
+            <!-- white space-->
+            <!-- <form [formGroup]="addMemberForm" (ngSubmit)="saveMember(addMemberForm.value)"> -->
+            <div class="row mg-t-0">
+                <div class="col-xl-6">
+                    <!-- start member details form  -->
+
+                    <div class="form-layout form-layout-4">
+                        <h6 class="br-section-label">Member Details</h6>
+                        <p class="br-section-text">pleas enter your details for the registration.</p>
+
+                        <div class="form-group">
+                            <label>Select Member<span class="tx-danger">*</span></label>
+                            <div>
+                                <div class="parsley-select  mg-t-0">
+                                    <select class="form-control" required #m (change)="findCourseDetails(m.value)">
+                                        <option label="Member"></option>
+                                        <option *ngFor="let member of memberList | async" value="{{member.memberid}}">
+                                            {{member.fullName}}</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-group">
+                            <label class="form-control-label">Full Name:</label>
+                            <input class="form-control wd-auto" type="text" value='{{fullName}}'>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label">First Name: <span class="tx-danger"></span></label>
+                            <input class="form-control wd-auto" type="text">
+
+                        </div>
+
+                        <div class="form-group ">
+                            <label class="form-control-label">Last Name: <span class="tx-danger"></span></label>
+                            <input class="form-control wd-auto" type="text">
+
+                        </div> -->
+
+                        <div class="d-md-flex mg-b-30">
+                            <div class="form-group mg-b-0">
+                                <label>Telephone No:</label>
+                                <input class="form-control wd-auto" type="text" value="{{telephone1}}">
+
+                            </div>
+                            <div class="form-group mg-b-0 mg-md-l-20 mg-t-20 mg-md-t-30">
+                                <input class="form-control wd-auto" type="text" value="{{telephone2}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <label class="form-control-label">Address:</label>
+                            <input class="form-control wd-auto" type="text" value="{{addressLine1}}">
+
+                        </div>
+                        <div class="d-md-flex mg-b-30">
+                            <div class="form-group mg-b-0">
+                                <input class="form-control wd-auto" type="text" value="{{addressLine2}}">
+                            </div><!-- form-group -->
+                            <div class="form-group mg-b-0 mg-md-l-20 mg-t-20 mg-md-t-0">
+                                <input class="form-control wd-auto" type="text" value="{{addressLine3}}">
+                            </div><!-- form-group -->
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label">Email Address: </label>
+                            <input class="form-control" type="text" value="{{email}}">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label">NIC No:</label>
+                            <input class="form-control" type="text" value="{{nic}}">
+
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Age</label>
+                            <input class="form-control" type="text" value="{{age}}">
+
+                        </div>
+
+                    </div><!-- form-layout -->
+
+                </div>
+
+                <!-- start course details form  -->
+                <div class="col-xl-6 mg-t-20 mg-xl-t-0">
+                    <div class="form-layout form-layout-5">
+                        <h6 class="br-section-label">Course Details</h6>
+
+                        <div class="form-group">
+                            <div class="row" style="margin-bottom: 20px;">
+                                <label class="form-control-label" style="text-align: left;">Trainer Name</label>
+                                <input class="form-control" type="text" value="{{trainerName}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <!-- <div class="row" style="margin-bottom: 20px;"> -->
+                            <!-- <label class="form-control-label">Registered Courses</label><br/> -->
+                            <div>
+                                <table class="table table-wrapper">
+                                    <thead class="thead-light">
+                                        <tr role="row">
+
+                                            <th scope="col">Course Name</th>
+                                            <th scope="col">Fee</th>
+                                            <th scope="col">Inactivate</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let course of activeCourses">
+                                            <td>{{course.coursename}}</td>
+                                            <td style="font-size: smaller;" *ngIf="age > 18">Monthly Fee:
+                                                {{course.adultMonthlyFee}}.00
+                                                <br />
+                                                Annual Fee: {{course.adultAnnualFee}}.00
+                                            </td>
+                                            <td style="font-size: smaller;" *ngIf="age < 18">Monthly Fee:
+                                                {{course.studentMonthlyFee}}.00
+                                                <br />
+                                                Annual Fee: {{course.studentAnnualFee}}.00
+                                            </td>
+                                            <!-- <td style="text-align: center;"><button
+                                                        style="box-shadow: 3px 3px #460303" class="btn btn-danger"><i
+                                                            class="far fa-trash-alt"></i></button>
+                                                </td> -->
+
+                                            <td style="text-align: center;cursor: pointer;">
+                                                <i style="color: red;" class="fas fa-minus-circle" (click)="inactivateCourse(course)"></i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- </div> -->
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <!-- <div class="row" style="margin-bottom: 20px;"> -->
+                            <!-- <label class="form-control-label">Available Courses</label> -->
+                            <div>
+                                <table class="table table-wrapper">
+                                    <thead class="thead-light">
+                                        <tr role="row">
+
+                                            <th scope="col">Course Name</th>
+                                            <th scope="col">Fee</th>
+                                            <th scope="col">Activate</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let course of inactiveCourses">
+                                            <td>{{course.coursename}}</td>
+                                            <td style="font-size: smaller;" *ngIf="age > 18">Monthly Fee:
+                                                {{course.adultMonthlyFee}}.00
+                                                <br />
+                                                Annual Fee: {{course.adultAnnualFee}}.00
+                                            </td>
+                                            <td style="font-size: smaller;" *ngIf="age < 18">Monthly Fee:
+                                                {{course.studentMonthlyFee}}.00
+                                                <br />
+                                                Annual Fee: {{course.studentAnnualFee}}.00
+                                            </td>
+                                            <!-- <td style="text-align: center;"><button style="box-shadow: 3px 3px #05a172"
+                                                    class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                            </td> -->
+                                            <td style="text-align: center; cursor: pointer;">
+                                                <i style="color: rgb(36, 214, 155);" class="fas fa-plus-circle" (click)="activateCourse(course)"></i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- </div> -->
+                        </div>
+
+                        <div class="form-group" style="margin-top: 20px;">
+                            <div class="row" style="margin-bottom: 20px;">
+                                <div class="col-md-8">
+                                    <label class="form-control-label" style="float: left;">Change Main Trainer:
+                                        <span class="tx-danger">*</span></label>
+                                    <select class="form-control" #t>
+                                        <option *ngFor="let trainer of trainerList | async"
+                                            value="{{trainer.trainerid}}">{{trainer.fullName}}</option>
+
+                                    </select>
+                                </div>
+                                <div class="row mg-t-25 col-md-4">
+                                    <div class="col-sm-8 ">
+                                        <!-- <div class="form-layout-footer " style="color: transparent;"> -->
+                                        <button type="submit" class="btn btn-info" (click)="changeTrainer(t.value)">Change Trainer
+                                        </button>
+                                        <!-- <button class="btn btn-secondary" type="reset">Cancel</button> -->
+
+                                        <!-- </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- <div class="col-md-6">
+                                        <label class="form-control-label" style="float: left;">Pay by<span
+                                                class="tx-danger">*</span></label>
+                                        <select (change)="showFee($event)" class="form-control" formControlName="payby">
+                                            <option value="Annually">Pay Annually</option>
+                                            <option value="Monthly">Pay Monthly</option>
+                                        </select>
+                                    </div> -->
+                                <!-- <div class="col-md-6">
+                                        <label class="form-control-label" style="float: left;">Net Fee <span
+                                                class="tx-danger">*</span></label>
+                                        <input class="form-control wd-auto" type="text" disabled value="{{fee}}"
+                                            [ngClass]="{'form-control': true,
+                                'is-invalid': netFee.invalid && netFee.touched,
+                                'is-valid': netFee.valid}" placeholder="Enter fee">
+                                        <small id="fnHelp" *ngIf="netFee.invalid && netFee.touched"
+                                            class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                            required</small>
+                                    </div> -->
+                            </div>
+                        </div>
+
+                    </div><!-- row -->
+
+
+
+                </div><!-- end--all-form-layout -->
+
+                <!--start form-layout-footer -->
+
+
+            </div><!-- col-6 -->
+            <!-- </form> -->
+        </div>
+        <!--end white space-->
+    </div>
+</div>
+
+<script src="../../../../assets/js/jquery.min.js"></script>
+<script src="../../../../assets/js/datepicker.js"></script>
+<script src="../../../../assets/js/bootstrap.bundle.min.js"></script>
+<script src="../../../../assets/js/perfect-scrollbar.min.js"></script>
+<script src="../../../../assets/js/moment.min.js"></script>
+<script src="../../../../assets/js/jquery.peity.min.js"></script>
+<script src="../../../../assets/js/highlight.pack.min.js"></script>
+<script src="../../../../assets/js/select2.min.js"></script>
+<script src="../../../../assets/js/bracket.js"></script>

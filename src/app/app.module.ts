@@ -22,6 +22,7 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { LoginService } from './modules/user_module/login/login/login.service';
 import { AuthGuard } from './classes/auth/auth.guard';
 import { AuthInterceptor } from './classes/auth/auth.interceptor';
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -43,7 +44,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DropDownListModule
   ],
   providers: [LoginService, AuthGuard,
     {

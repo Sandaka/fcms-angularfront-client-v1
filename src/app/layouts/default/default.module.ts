@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AddPaymentComponent } from 'src/app/modules/payment_module/add-payment/add-payment.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MemberModulesModule } from 'src/app/modules/member-modules.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     // AddImprovementsComponent,
     ImprovementReportComponent,
     AddWorkoutComponent,
-    CreateScheduleComponent,
+    //CreateScheduleComponent,
     CreateUserComponent,
     // AddPaymentComponent
   ],

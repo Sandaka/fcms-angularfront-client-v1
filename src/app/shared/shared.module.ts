@@ -5,13 +5,15 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './admin/header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { TrainerSidebarComponent } from './trainer/trainer-sidebar/trainer-sidebar.component';
+import { MemberSidebarComponent } from './member/member-sidebar/member-sidebar.component';
 
 @NgModule({
   declarations: [
     SidebarComponent,
     HeaderComponent,
     FooterComponent,
-    TrainerSidebarComponent
+    TrainerSidebarComponent,
+    MemberSidebarComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { TrainerSidebarComponent } from './trainer/trainer-sidebar/trainer-sideb
     SidebarComponent,
     HeaderComponent,
     FooterComponent,
-    TrainerSidebarComponent
+    TrainerSidebarComponent,
+    MemberSidebarComponent,
   ]
 })
 export class SharedModule { }
