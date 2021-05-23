@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'node_modules/chart.js';
+import { DashboardModuleService } from '../dashboard-module.service';
 
 @Component({
   selector: 'app-trainer-dashboard',
@@ -8,9 +9,19 @@ import { Chart } from 'node_modules/chart.js';
 })
 export class TrainerDashboardComponent implements OnInit {
 
-  constructor() { }
+  announcementCount: number;
+  pendingPaymentCount: number;
+  expSchedulesCount: number;
+  memberCount: number;
+  trainerId: string;
+
+  constructor(private dasboardService: DashboardModuleService) { }
 
   ngOnInit() {
+
+    this.trainerId = sessionStorage.getItem('trainerId');
+    this.fillTopTile();
+
     var myChart = new Chart("myChart", {
       type: 'doughnut',
       data: {
@@ -47,4 +58,23 @@ export class TrainerDashboardComponent implements OnInit {
     });
   }
 
+
+  fillTopTile() {
+
+    this.dasboardService.getAnnouncements().subscribe(data => {
+      this.announcementCount = data;
+    });
+
+    this.dasboardService.getTrainerPendingPayments(this.trainerId).subscribe(data => {
+      this.pendingPaymentCount = data;
+    });
+
+    this.dasboardService.getTrainerExpiringSchedules(this.trainerId).subscribe(data => {
+      this.expSchedulesCount = data;
+    });
+
+    this.dasboardService.getTrainerMemberCount(this.trainerId).subscribe(data => {
+      this.memberCount = data;
+    });
+  }
 }

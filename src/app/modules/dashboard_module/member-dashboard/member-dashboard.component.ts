@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { data } from 'jquery';
 import { Chart } from 'node_modules/chart.js';
 import { Observable } from 'rxjs';
 import { BodyImprovementsReport } from 'src/app/classes/bodyImprovementsReport';
@@ -15,12 +16,25 @@ export class MemberDashboardComponent implements OnInit {
   improvementsList: Observable<BodyImprovementsReport[]>;
   improvementOb1: BodyImprovementsReport;
   improvementOb2: BodyImprovementsReport;
+  announcementCount: any;
+  scheduleCount: any;
 
   constructor(private dasboardService: DashboardModuleService) { }
 
   ngOnInit() {
     this.memberId = sessionStorage.getItem('memberId');
+    this.fillTopTile();
     this.loadBIReports();
+  }
+
+  fillTopTile() {
+    this.dasboardService.getAnnouncements().subscribe(data => {
+      this.announcementCount = data;
+    });
+
+    this.dasboardService.getMemberScheduleCount(this.memberId).subscribe(data => {
+      this.scheduleCount = data;
+    });
   }
 
   loadBIReports() {

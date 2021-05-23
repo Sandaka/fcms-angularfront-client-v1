@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AddImprovementsComponent } from './body_improvement_module/add-improvements/add-improvements.component';
 import { TrainerModulesModule } from './trainer-modules.module';
 import { AddPaymentComponent } from './payment_module/add-payment/add-payment.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DaterangeReportComponent } from './profit_reports_module/daterange-report/daterange-report.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -20,6 +20,11 @@ import { MemberModulesModule } from './member-modules.module';
 import { AdminDashboardComponent } from './dashboard_module/admin-dashboard/admin-dashboard.component';
 import { AddExpenseComponent } from './payment_module/add-expense/add-expense.component';
 import { ChangeCourseComponent } from './member_module/change-course/change-course.component';
+import { UnpaidMembersComponent } from './payment_module/unpaid-members/unpaid-members.component';
+import { CreateAnnouncementComponent } from './announcements_module/create-announcement/create-announcement.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -36,7 +41,9 @@ import { ChangeCourseComponent } from './member_module/change-course/change-cour
     MonthlyReportComponent,
     AdminDashboardComponent,
     AddExpenseComponent,
-    ChangeCourseComponent
+    ChangeCourseComponent,
+    UnpaidMembersComponent,
+    CreateAnnouncementComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +53,10 @@ import { ChangeCourseComponent } from './member_module/change-course/change-cour
     NgbModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
+    Ng2SearchPipeModule,
+    Ng2OrderModule,
+    NgxPaginationModule,
+    FormsModule
   ],
   exports: [TrainerModulesModule, MemberModulesModule]
 })

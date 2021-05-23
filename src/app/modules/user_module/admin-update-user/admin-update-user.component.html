@@ -30,11 +30,8 @@
                         <div class="form-group">
                             <label>Search Users<span class="tx-danger"></span></label>
                             <div class="">
-                                <select class="form-control select2-show-search   "
-                                    data-placeholder="Choose one (with searchbox)">
-                                    <option label="Choose one"></option>
-                                    <option value="">User 1</option>
-                                </select>
+                                <input class="form-control" type="text" name="userName" [(ngModel)]="userName"
+                                    (ngModelChange)="search()" placeholder="Search user by username">
                             </div><!-- col-4 -->
                         </div>
                     </div>
@@ -60,7 +57,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let user of usersList">
+                                <tr *ngFor="let user of usersList | paginate:{itemsPerPage:5, currentPage: p};">
                                     <td>{{user.userid}}</td>
                                     <td>{{user.username}}</td>
                                     <td>{{user.userRoleName}}</td>
@@ -72,14 +69,17 @@
                                                 class="fas fa-edit"></i></button></td>
                                     <td style="text-align: center;">
                                         <button class="btn btn-warning" *ngIf="user.status=='active'"
-                                            style="box-shadow: 3px 3px #a0073a">inactivate</button>
+                                            style="box-shadow: 3px 3px #a0073a"
+                                            (click)="getConfirmation(confirmationModal,user)">inactivate</button>
 
                                         <button class="btn btn-success" *ngIf="user.status=='inactive'"
-                                            style="box-shadow: 3px 3px #0a8a6a">activate</button>
+                                            style="box-shadow: 3px 3px #0a8a6a"
+                                            (click)="getConfirmation(confirmationModal,user)">activate</button>
                                     </td>
 
                                 </tr>
                             </tbody>
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
                         </table>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
 
             <div class="form-group row">
                 <!-- <input type="radio" value="test"> -->
-                <div class="col-sm-6">
+                <div class="col-sm-6" style="display: none;">
                     <label class="form-control-label">Active</label>
                     <input [checked]="status==='active'? 'true' : 'false'" class="" type="radio" id="status_active"
                         name="status" value="active" formControlName="status">
@@ -146,5 +146,28 @@
                     (click)="modal.dismiss()">Close</button>
             </div>
         </form>
+    </div>
+</ng-template>
+
+
+<ng-template #confirmationModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" *ngIf="conf_status=='active'">Are you sure to inactivate
+            <span><b>{{conf_username}}</b></span> ?
+        </h5>
+        <h5 class="modal-title" *ngIf="conf_status=='inactive'">Are you sure to activate
+            <span><b>{{conf_username}}</b></span> ?
+        </h5>
+        <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" (click)="updateStatus(conf_userid, conf_status)"
+            class="btn btn-danger tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium">Yes
+        </button>
+        <button type="button" class="btn btn-outline-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium"
+            (click)="modal.dismiss()">Quit</button>
     </div>
 </ng-template>

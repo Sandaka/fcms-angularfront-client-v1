@@ -70,6 +70,8 @@ export class AddGuidelineComponent implements OnInit {
         }
       }
       );
+
+      this.showSuccessAdded();
   }
 
   //Gets called when the user clicks on retieve image button to get the image from back end
@@ -192,4 +194,8 @@ export class AddGuidelineComponent implements OnInit {
       { timeOut: 4000 });
   }
 
+  showSuccessAdded() {
+    this.toastr.success('Guideline has been added to the', 'Pending list!',
+      { timeOut: 3000 });;
+  }
 }

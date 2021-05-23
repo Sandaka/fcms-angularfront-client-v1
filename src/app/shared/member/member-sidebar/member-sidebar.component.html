@@ -144,14 +144,14 @@
                                         [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
                                 </a> -->
 
-                                <!-- Attendance -->
-                                <a *ngIf="submenu.title ==='My Attendance'" href="" routerLink="/member/member_view_attendance"> {{submenu.title}}
+                                <!-- Announcement -->
+                                <a *ngIf="submenu.title ==='View Announcements'" routerLink='/member/view_announcements'> {{submenu.title}}
                                     <span *ngIf="submenu.badge" class="badge badge-pill"
                                         [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
                                 </a>
 
                                 <!-- Payments -->
-                                <a *ngIf="submenu.title ==='Fee Settlements'" routerLink="/member/member_fee_settlement"> {{submenu.title}}
+                                <a *ngIf="submenu.title ==='Fee Settlements'" routerLink="/member/payment_gateway"> {{submenu.title}}
                                     <span *ngIf="submenu.badge" class="badge badge-pill"
                                         [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
                                 </a>

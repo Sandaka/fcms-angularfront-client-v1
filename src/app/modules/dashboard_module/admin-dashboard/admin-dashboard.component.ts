@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { data } from 'jquery';
 import { ToastrService } from 'ngx-toastr';
 import { Chart } from 'node_modules/chart.js';
 import { Observable } from 'rxjs';
@@ -22,11 +23,35 @@ export class AdminDashboardComponent implements OnInit {
   yearProfitArray: any[] = Array();
   yearProfitGraph: ProfitGraph;
 
+  approvalCount: number;
+  announcementCount: number;
+  pendingPaymentCount: number;
+  expSchedulesCount: number;
+
   constructor(private dasboardService: DashboardModuleService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.loadReports();
     this.showInfoMsg();
+    this.fillTopTile();
+  }
+
+  fillTopTile() {
+    this.dasboardService.getAdminPendingApprovals().subscribe(data => {
+      this.approvalCount = data;
+    });
+
+    this.dasboardService.getAnnouncements().subscribe(data => {
+      this.announcementCount = data;
+    });
+
+    this.dasboardService.getAdminPendingPayments().subscribe(data => {
+      this.pendingPaymentCount = data;
+    });
+
+    this.dasboardService.getAdminExpiringSchedules().subscribe(data => {
+      this.expSchedulesCount = data;
+    });
   }
 
   loadReports() {
@@ -67,7 +92,7 @@ export class AdminDashboardComponent implements OnInit {
       data.forEach(element => {
         this.yearProfitGraph = element;
         this.yearProfitArray.push(this.yearProfitGraph.profit);
-        this.yearArray.push(this.yearProfitGraph.year);
+        this.yearArray.push(this.yearProfitGraph.month);
       });
 
       var annualReport = new Chart("annualReport", {

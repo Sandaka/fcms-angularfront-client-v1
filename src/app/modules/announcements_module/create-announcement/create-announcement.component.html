@@ -1,0 +1,88 @@
+<!-- Bracket CSS -->
+<link rel="stylesheet" href="../../../../assets/css/theme_admin/bracket.css">
+
+<div class="br-mainpanel">
+    <div class="br-pageheader">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+            <a class="breadcrumb-item" href="/">Home</a>
+            <a class="breadcrumb-item" href="#">Announcements</a>
+            <span class="breadcrumb-item active">Create Announcement</span>
+        </nav>
+    </div><!-- br-pageheader -->
+
+    <div class="br-pagetitle">
+        <i class="fa fa-comments"></i>
+        <div>
+            <h4>Create Announcement</h4>
+            <p class="mg-b-0">Type the message you want to publish.</p>
+        </div>
+    </div><!-- d-flex -->
+
+    <div class="br-pagebody">
+        <!-- start forms-->
+        <form [formGroup]="addAnnouncementForm" (ngSubmit)="onSubmit(addAnnouncementForm.value)">
+            <div class="br-section-wrapper">
+                <!-- white space-->
+                <div class="row">
+                    <div class="col-md-3 col-sm-2"></div>
+                    <div
+                        class="col-md-6 col-sm-8 login-wrapper wd-300 wd-xs-400 pd-25 pd-xs-40 bg-white rounded shadow-base">
+                        <div class="signin-logo tx-center tx-28 tx-bold tx-inverse"><span class="tx-normal"></span>
+                            New<span class="tx-info"> Announcement</span> <span class="tx-normal"></span></div>
+                        
+
+                        <div class="form-group ">
+                            <div class="mg-b-10 ">
+                                <label>User Role :<span class="tx-danger"></span></label>
+                                <div class="">
+                                    <div id="slWrapper2" class="parsley-select  mg-t-0">
+                                        <select class="form-control" id="messageType" formControlName="messageType"
+                                            required [ngClass]="{'form-control': true,
+                                        'is-invalid': messageType.invalid && messageType.touched,
+                                        'is-valid': messageType.valid}">
+
+                                            <!-- <option label=""></option> -->
+                                            <option value="Common">Common</option>
+                                            <option value="Trainer">Trainer</option>
+                                            <option value="Member">Member</option>
+                                        </select>
+                                        <small id="fnHelp" *ngIf="messageType.invalid && messageType.touched"
+                                            class="form-text custom-invalid-feedback" style="color: red;">Please select
+                                            the type</small>
+                                        <div id="slErrorContainer2"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label>Message<span class="tx-danger"></span></label>
+                                <textarea class="form-control" id="username" formControlName="message"
+                                    [ngClass]="{'form-control': true,
+                                    'is-invalid': message.invalid && message.touched,
+                                    'is-valid': message.valid}" placeholder="Type message"></textArea>
+                                <small id="fnHelp" *ngIf="message.invalid && message.touched"
+                                    class="form-text custom-invalid-feedback" style="color: red;">Field is
+                                    required</small>
+                            </div>
+
+                        </div>
+
+                        <div class="row mg-t-50">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-info btn-block "
+                                    [disabled]="addAnnouncementForm.invalid">Publish</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="reset" class="btn btn-warning btn-block ">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-2"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

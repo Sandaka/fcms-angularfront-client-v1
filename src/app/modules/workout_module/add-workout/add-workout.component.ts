@@ -13,10 +13,13 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AddWorkoutComponent implements OnInit {
 
-  workoutsList: Observable<Workout[]>;
+  //workoutsList: Observable<Workout[]>;
+  workoutsList: Workout[] = [];
   addWorkoutForm: FormGroup;
   updateWorkoutForm: FormGroup;
   deleteWorkoutForm: FormGroup;
+
+  workoutName: any;
 
   constructor(private addWorkoutService: AddWorkoutService, private modalService: NgbModal, private formBuilder: FormBuilder, private toastr: ToastrService) { }
 
@@ -39,6 +42,16 @@ export class AddWorkoutComponent implements OnInit {
       workoutname: [null, [Validators.required]],
       workoutid: [null]
     });
+  }
+
+  search() {
+    if (this.workoutName == "") {
+      this.ngOnInit();
+    } else {
+      this.workoutsList = this.workoutsList.filter(resonse => {
+        return resonse.workoutname.toLocaleLowerCase().match(this.workoutName.toLocaleLowerCase());
+      });
+    }
   }
 
   // adding data

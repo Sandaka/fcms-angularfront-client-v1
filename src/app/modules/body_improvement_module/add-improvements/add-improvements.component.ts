@@ -32,6 +32,7 @@ export class AddImprovementsComponent implements OnInit {
 
   ngOnInit() {
     this.loadMembers();
+    this.infoMessage();
     this.addBodyImprovementsForm = this.formBuilder.group({
       memberId: [null, [Validators.required]],
       scheduleId: [null, [Validators.required]],
@@ -128,6 +129,11 @@ export class AddImprovementsComponent implements OnInit {
   }
   showError() {
     this.toastr.error('Something Went Wrong!', 'Please check again',
+      { timeOut: 4000 });
+  }
+
+  infoMessage() {
+    this.toastr.info('Existing records will be updated!', 'If you are trying to add new measurements for existing schedule,',
       { timeOut: 4000 });
   }
 }

@@ -104,6 +104,17 @@ export class TrainerSidebarService {
           title: 'Add Guidelines',
         }
       ]
+    },
+    {
+      title: 'Announcements',
+      icon: 'fa fa-bullhorn',
+      active: false,
+      type: 'dropdown',
+      submenus: [
+        {
+          title: 'View Announcements',
+        }
+      ]
     }
     // {
     //   title: 'Course',

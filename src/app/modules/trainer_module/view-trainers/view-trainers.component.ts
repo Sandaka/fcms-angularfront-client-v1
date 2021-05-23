@@ -13,8 +13,12 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ViewTrainersComponent implements OnInit {
 
-  trainerList: Observable<Trainer[]>;
+  //trainerList: Observable<Trainer[]>;
   updateTrainerForm: FormGroup;
+  trainerList: Trainer[] = [];
+
+  fullName: any;
+  p: number = 1;
 
   constructor(private viewTrainerService: ViewTrainersService, private modalService: NgbModal, private formBuilder: FormBuilder, private toastr: ToastrService) { }
 
@@ -24,6 +28,16 @@ export class ViewTrainersComponent implements OnInit {
       trainername: [null, [Validators.required]],
       trainerid: [null]
     });
+  }
+
+  search() {
+    if (this.fullName == "") {
+      this.ngOnInit();
+    } else {
+      this.trainerList = this.trainerList.filter(resonse => {
+        return resonse.fullName.toLocaleLowerCase().match(this.fullName.toLocaleLowerCase());
+      });
+    }
   }
 
   loadTrainers() {

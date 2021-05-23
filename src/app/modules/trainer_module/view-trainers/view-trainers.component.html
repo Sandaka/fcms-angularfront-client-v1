@@ -28,15 +28,11 @@
         <!-- start forms-->
         <div class="br-section-wrapper">
             <!-- white space-->
-            <div class="row  col-md-12">
-
-                
-
-                
-               
+            <div class="row  col-md-6">
+                <input class="form-control" type="text" name="fullName" [(ngModel)]="fullName" (ngModelChange)="search()" placeholder="Search trainer by name">
             </div>
 
-            <div class="br-section-wrapper ">
+            <div class="br-section-wrapper mg-t-10">
                 <h6 class="br-section-label">Trainer Data Table</h6>
                 <p class="br-section-text"></p>
 
@@ -56,7 +52,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let trainer of trainerList">
+                                <tr *ngFor="let trainer of trainerList | paginate:{itemsPerPage:5, currentPage: p};">
                                     <td>{{trainer.trainerid}}</td>
                                     <td>{{trainer.fullName}}</td>
                                     <td>{{trainer.telephone1}}</td>
@@ -72,6 +68,7 @@
                                 </tr>
 
                             </tbody>
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
                         </table>
                     </div>
                 </div>
@@ -149,7 +146,8 @@
 
             <div class="modal-footer">
                 <button type="button" (click)="inactivateTrainer(updateTrainerForm.value)"
-                    class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium">Yes, Inactivate</button>
+                    class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium">Yes,
+                    Inactivate</button>
                 <button type="button" class="btn btn-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium"
                     (click)="modal.dismiss()">No, Wait</button>
             </div>

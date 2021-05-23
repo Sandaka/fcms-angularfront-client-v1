@@ -2,7 +2,8 @@
     <div class="sidebar-content">
         <!-- <perfect-scrollbar> -->
         <div class="sidebar-header">
-            <a routerLink="/trainer/"><span style="color: aqua;">Gym</span> <span style="color: azure;"> Coach V2.0 </span> 
+            <a routerLink="/trainer/"><span style="color: aqua;">Gym</span> <span style="color: azure;"> Coach V2.0
+                </span>
                 <i style="margin-left: 20px;" class="fa fa-home" aria-hidden="true"></i>
             </a>
         </div>
@@ -12,7 +13,7 @@
                 <img class="img-responsive img-rounded" src="assets/img/2964514.png" alt="User picture">
             </div>
             <div class="user-info">
-                <span class="user-name">Hello, 
+                <span class="user-name">Hello,
                     <strong>{{userName}}</strong>
                 </span>
                 <span class="user-role">Trainer</span>
@@ -62,12 +63,14 @@
                                 </a> -->
 
                                 <!-- Workout -->
-                                <a *ngIf="submenu.title ==='Body Improvement'" routerLink="/trainer/add_bodyimprovements">
+                                <a *ngIf="submenu.title ==='Body Improvement'"
+                                    routerLink="/trainer/add_bodyimprovements">
                                     {{submenu.title}}
                                     <span *ngIf="submenu.badge" class="badge badge-pill"
                                         [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
                                 </a>
-                                <a *ngIf="submenu.title ==='BI Report'" routerLink="/trainer/trainer_body_improvement_report">
+                                <a *ngIf="submenu.title ==='BI Report'"
+                                    routerLink="/trainer/trainer_body_improvement_report">
                                     {{submenu.title}}
                                     <span *ngIf="submenu.badge" class="badge badge-pill"
                                         [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
@@ -109,22 +112,33 @@
 
 
                                 <!-- User -->
-                                <a *ngIf="submenu.title ==='Change Password'" routerLink='/trainer/change_password' href="">
+                                <a *ngIf="submenu.title ==='Change Password'" routerLink='/trainer/change_password'
+                                    href="">
                                     {{submenu.title}}
                                     <span *ngIf="submenu.badge" class="badge badge-pill"
                                         [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
                                 </a>
-                                <a *ngIf="submenu.title ==='Update Profile'" href="" routerLink="/trainer/trainer_update_profile"> {{submenu.title}}
+                                <a *ngIf="submenu.title ==='Update Profile'" href=""
+                                    routerLink="/trainer/trainer_update_profile"> {{submenu.title}}
                                     <span *ngIf="submenu.badge" class="badge badge-pill"
                                         [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
                                 </a>
 
 
                                 <!-- Guidelines -->
-                                <a *ngIf="submenu.title ==='Add Guidelines'" href="" routerLink="/trainer/add_guideline"> {{submenu.title}}
+                                <a *ngIf="submenu.title ==='Add Guidelines'" href=""
+                                    routerLink="/trainer/add_guideline"> {{submenu.title}}
                                     <span *ngIf="submenu.badge" class="badge badge-pill"
                                         [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
                                 </a>
+
+                                <!-- Announcement -->
+                                <a *ngIf="submenu.title ==='View Announcements'"
+                                    routerLink='/trainer/view_announcements'> {{submenu.title}}
+                                    <span *ngIf="submenu.badge" class="badge badge-pill"
+                                        [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
+                                </a>
+
                                 <!-- <a *ngIf="submenu.title ==='Update Guidelines'" href=""> {{submenu.title}}
                                     <span *ngIf="submenu.badge" class="badge badge-pill"
                                         [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>

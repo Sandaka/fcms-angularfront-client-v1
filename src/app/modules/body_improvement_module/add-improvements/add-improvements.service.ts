@@ -13,7 +13,7 @@ export class AddImprovementsService {
 
   constructor(private http: HttpClient) { }
 
-  saveMeasurements(bodyImprovements: BodyImprovements): Observable<Object> {
+  saveMeasurements(bodyImprovements: BodyImprovements): Observable<any> {
     return this.http.post(`${this.measurementUrl}`, bodyImprovements);
   }
 

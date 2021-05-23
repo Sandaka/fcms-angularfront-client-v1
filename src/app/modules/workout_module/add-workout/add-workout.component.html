@@ -35,15 +35,7 @@
                         <div class="form-group">
                             <label>Search Workouts<span class="tx-danger"></span></label>
                             <div class="">
-                                <select class="form-control select2-show-search   "
-                                    data-placeholder="Choose one (with searchbox)">
-                                    <option label="Choose one"></option>
-                                    <option value="Bench press">Bench press</option>
-                                    <option value="Incline press">Incline press</option>
-                                    <option value="Barbel curlWaruna">Barbel curl</option>
-                                    <option value="Calves">Calves</option>
-                                    <option value="Hamer Curl">Hamer Curl</option>
-                                </select>
+                                <input class="form-control" type="text" name="workoutName" [(ngModel)]="workoutName" (ngModelChange)="search()" placeholder="Search workout by name">
                             </div><!-- col-4 -->
                         </div>
                     </div>

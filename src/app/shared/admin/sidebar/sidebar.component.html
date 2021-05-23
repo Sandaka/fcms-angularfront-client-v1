@@ -178,8 +178,12 @@
                                         [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
                                 </a>
 
-                                <!-- Attendance -->
-                                <a *ngIf="submenu.title ==='Attendance'" routerLink='/a/add_payment'> {{submenu.title}}
+                                <!-- Announcement -->
+                                <a *ngIf="submenu.title ==='Create Announcement'" routerLink='/admin/create_announcement'> {{submenu.title}}
+                                    <span *ngIf="submenu.badge" class="badge badge-pill"
+                                        [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
+                                </a>
+                                <a *ngIf="submenu.title ==='View Announcements'" routerLink='/admin/view_announcements'> {{submenu.title}}
                                     <span *ngIf="submenu.badge" class="badge badge-pill"
                                         [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
                                 </a>
@@ -195,7 +199,11 @@
                                     <span *ngIf="submenu.badge" class="badge badge-pill"
                                         [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
                                 </a>
-
+                                <a *ngIf="submenu.title ==='Track Fees'" routerLink='/admin/track_fees'>
+                                    {{submenu.title}}
+                                    <span *ngIf="submenu.badge" class="badge badge-pill"
+                                        [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
+                                </a>
                             </li>
                         </ul>
                     </div>

@@ -39,6 +39,10 @@ import { MemberDashboardComponent } from './modules/dashboard_module/member-dash
 import { ChangePasswordComponent } from './modules/user_module/change-password/change-password.component';
 import { AddExpenseComponent } from './modules/payment_module/add-expense/add-expense.component';
 import { ChangeCourseComponent } from './modules/member_module/change-course/change-course.component';
+import { UnpaidMembersComponent } from './modules/payment_module/unpaid-members/unpaid-members.component';
+import { CreateAnnouncementComponent } from './modules/announcements_module/create-announcement/create-announcement.component';
+import { ViewAnnouncementComponent } from './modules/announcements_module/view-announcement/view-announcement.component';
+import { MemberPaymentGatewayComponent } from './modules/payment_module/member-payment-gateway/member-payment-gateway.component';
 
 const routes: Routes = [
   {
@@ -86,6 +90,12 @@ const routes: Routes = [
       path: 'add_expense', component: AddExpenseComponent
     }, {
       path: 'change_course', component: ChangeCourseComponent
+    }, {
+      path: 'track_fees', component: UnpaidMembersComponent
+    }, {
+      path: 'create_announcement', component: CreateAnnouncementComponent
+    }, {
+      path: 'view_announcements', component: ViewAnnouncementComponent
     }
     ]
   },
@@ -116,6 +126,8 @@ const routes: Routes = [
       path: 'trainer_body_improvement_report', component: TrainerBodyImprovementsComponent
     }, {
       path: 'change_password', component: ChangePasswordComponent
+    }, {
+      path: 'view_announcements', component: ViewAnnouncementComponent
     }
     ]
   },
@@ -141,6 +153,10 @@ const routes: Routes = [
       path: 'member_fee_settlement', component: MemberViewPaymentsComponent
     }, {
       path: 'change_password', component: ChangePasswordComponent
+    }, {
+      path: 'view_announcements', component: ViewAnnouncementComponent
+    }, {
+      path: 'payment_gateway', component: MemberPaymentGatewayComponent
     }
     ]
   }

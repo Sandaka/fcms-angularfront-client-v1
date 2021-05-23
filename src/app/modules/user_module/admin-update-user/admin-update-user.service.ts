@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from 'src/app/classes/user';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class AdminUpdateUserService {
 
   inactiveUser(id: number): Observable<any> {
     return this.http.delete(`${this.userUrl}/${id}`, { responseType: 'text' });
+  }
+
+  changeStatus(userId: any, user: User): Observable<any> {
+    return this.http.put(`${this.userUrl}/updateStatus/` + userId, user);
   }
 }

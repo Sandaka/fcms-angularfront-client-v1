@@ -144,15 +144,15 @@ export class MemberSidebarService {
     //   type: 'header'
     // },
     {
-      title: 'Attendance',
-      icon: 'fa fa-calendar',
+      title: 'Announcements',
+      icon: 'fa fa-bullhorn',
       active: false,
       type: 'dropdown',
       submenus: [
-            {
-              title: 'My Attendance',
-            }
-          ]
+        {
+          title: 'View Announcements',
+        }
+      ]
     },
     {
       title: 'Payment',

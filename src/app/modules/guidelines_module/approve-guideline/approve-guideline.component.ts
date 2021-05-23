@@ -27,6 +27,7 @@ export class ApproveGuidelineComponent implements OnInit {
 
   loadPendingList() {
     console.log("running...")
+    //this.guidelineLis
     this.approveGuidelineService.getPendingGuidelines().subscribe(data => {
       // console.log(data);
       this.guidelineList = data;
@@ -69,12 +70,13 @@ export class ApproveGuidelineComponent implements OnInit {
     });
 
     this.showSuccessActivate();
+    //this.loadPendingList();
   }
 
 
   // Toastr
   showSuccessActivate() {
-    this.toastr.success('Guideline has been inactivated', 'Successfully!',
+    this.toastr.success('Guideline has been activated', 'Successfully!',
       { timeOut: 3000 });;
   }
   showErrorActivate() {

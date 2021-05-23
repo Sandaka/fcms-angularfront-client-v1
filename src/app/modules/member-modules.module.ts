@@ -10,6 +10,8 @@ import { MemberDashboardComponent } from "./dashboard_module/member-dashboard/me
 import { DropDownListModule } from "@syncfusion/ej2-angular-dropdowns";
 import { BrowserModule } from "@angular/platform-browser";
 import { ChangePasswordComponent } from "./user_module/change-password/change-password.component";
+import { ViewAnnouncementComponent } from "./announcements_module/view-announcement/view-announcement.component";
+import { MemberPaymentGatewayComponent } from "./payment_module/member-payment-gateway/member-payment-gateway.component";
 
 @NgModule({
     declarations: [
@@ -19,7 +21,9 @@ import { ChangePasswordComponent } from "./user_module/change-password/change-pa
         MemberBodyImprovementsComponent,
         MemberViewScheduleComponent,
         MemberDashboardComponent,
-        ChangePasswordComponent
+        ChangePasswordComponent,
+        ViewAnnouncementComponent,
+        MemberPaymentGatewayComponent
     ],
     imports: [
         CommonModule,

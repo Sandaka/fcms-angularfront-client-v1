@@ -151,14 +151,18 @@ export class SidebarService {
       type: 'header'
     },
     {
-      title: 'Attendance',
-      icon: 'fa fa-calendar',
+      title: 'Announcements',
+      icon: 'fa fa-bullhorn',
       active: false,
-      type: 'simple',
-      // badge: {
-      //   text: 'Beta',
-      //   class: 'badge-primary'
-      // },
+      type: 'dropdown',
+      submenus: [
+        {
+          title: 'Create Announcement',
+        },
+        {
+          title: 'View Announcements',
+        }
+      ]
     },
     {
       title: 'Payment',
@@ -171,6 +175,9 @@ export class SidebarService {
         },
         {
           title: 'Add Expenses',
+        },
+        {
+          title: 'Track Fees',
         }
       ]
     }

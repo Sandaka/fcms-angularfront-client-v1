@@ -1,0 +1,85 @@
+<!-- <link href="../../../../assets/css/all.min.css" rel="stylesheet"> -->
+<!-- <link href="../../../../assets/css/ionicons.min.css" rel="stylesheet"> -->
+<!-- <link href="../../../../assets/css/github.css" rel="stylesheet"> -->
+<!-- <link href="../../../../assets/css/select2.min.css" rel="stylesheet"> -->
+
+<!-- Bracket CSS -->
+<link rel="stylesheet" href="../../../../assets/css/theme_admin/bracket.css">
+
+<div class="br-mainpanel">
+    <div class="br-pageheader">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+            <a class="breadcrumb-item" routerLink="/">Home</a>
+            <a class="breadcrumb-item" href="#">Payment</a>
+            <span class="breadcrumb-item active">Unpaid Members</span>
+        </nav>
+    </div><!-- br-pageheader -->
+
+    <div class="br-pagetitle">
+        <i class="fa fa-book"></i>
+        <div>
+            <h4>Unpaid Members</h4>
+            <p class="mg-b-0">You can track fees unpaid members for last two months.</p>
+        </div>
+    </div><!-- d-flex -->
+
+    <div class="br-pagebody">
+        <!-- start forms-->
+        <div class="br-section-wrapper">
+            <!-- white space-->
+            <div class="row  col-md-12">
+
+            </div>
+
+            <div class="br-section-wrapper ">
+                <h6 class="br-section-label">Fee Tracker</h6>
+                <p class="br-section-text"></p>
+
+                <div class="table-wrapper" data-select2-id="6">
+                    <div>
+
+                        <table class="table table-wrapper">
+                            <thead class="thead-light">
+                                <tr role="row">
+                                    <th scope="col">Member ID</th>
+                                    <th scope="col">Member Name</th>
+                                    <th scope="col">Telephone 1</th>
+                                    <th scope="col">Telephone 2</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Net Fee</th>
+                                    <th scope="col">Trainer</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let unpaidMembers of unpaidMemberList">
+                                    <td>{{unpaidMembers.memberId}}</td>
+                                    <td>{{unpaidMembers.memberName}}</td>
+                                    <td>{{unpaidMembers.telephone1}}</td>
+                                    <td>{{unpaidMembers.telephone2}}</td>
+                                    <td>{{unpaidMembers.email}}</td>
+                                    <td>{{unpaidMembers.netFee}}.00</td>
+                                    <td>{{unpaidMembers.trainerName}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <!-- <div class="alert alert-primary" role="alert">
+                            This is a primary alert—check it out!
+                        </div>
+                        <div class="alert alert-secondary" role="alert">
+                            This is a secondary alert—check it out!
+                        </div>
+                        <div class="alert alert-success" role="alert">
+                            This is a success alert—check it out!
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <!-- table-wrapper -->
+        </div>
+        <!--end white space-->
+    </div>
+    <!--white space closed-->
+</div>

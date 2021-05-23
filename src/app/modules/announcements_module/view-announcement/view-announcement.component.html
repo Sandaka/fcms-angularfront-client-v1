@@ -1,0 +1,46 @@
+<!-- Bracket CSS -->
+<link rel="stylesheet" href="../../../../assets/css/theme_admin/bracket.css">
+
+<div class="br-mainpanel">
+    <div class="br-pageheader">
+        <nav class="breadcrumb pd-0 mg-0 tx-12">
+            <a class="breadcrumb-item" href="/">Home</a>
+            <a class="breadcrumb-item" href="#">Announcements</a>
+            <span class="breadcrumb-item active">View Announcement</span>
+        </nav>
+    </div><!-- br-pageheader -->
+
+    <div class="br-pagetitle">
+        <i class="fa fa-comments"></i>
+        <div>
+            <h4>Published Announcements</h4>
+            <p class="mg-b-0">Last 10 announcements.</p>
+        </div>
+    </div><!-- d-flex -->
+
+    <div class="br-pagebody">
+        <!-- start forms-->
+
+        <div *ngFor="let announcement of announcementList">
+            <div *ngIf="announcement.messageType === 'Common'" class="alert alert-danger" role="alert">
+                {{announcement.message}}
+                <hr />
+                <p style="color: rgb(131, 131, 130); font-size: 9px;">Published as a {{announcement.messageType}} message | {{announcement.createdDate}}
+                </p>
+            </div>
+            <div *ngIf="announcement.messageType === 'Trainer'" class="alert alert-info" role="alert">
+                {{announcement.message}}
+                <hr />
+                <p style="color: rgb(131, 131, 130); font-size: 9px;">Published as a {{announcement.messageType}} message | {{announcement.createdDate}}
+                </p>
+            </div>
+            <div *ngIf="announcement.messageType === 'Member'" class="alert alert-warning" role="alert">
+                {{announcement.message}}
+                <hr />
+                <p style="color: rgb(131, 131, 130); font-size: 9px;">Published as a {{announcement.messageType}} message | {{announcement.createdDate}}
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>

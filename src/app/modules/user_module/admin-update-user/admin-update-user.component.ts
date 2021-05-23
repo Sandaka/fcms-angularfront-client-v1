@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { stat } from 'fs';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/classes/user';
@@ -13,8 +14,16 @@ import { AdminUpdateUserService } from './admin-update-user.service';
 })
 export class AdminUpdateUserComponent implements OnInit {
 
-  usersList: Observable<User[]>;
+  //usersList: Observable<User[]>;
+  usersList: User[] = [];
   adminUpdateUserForm: FormGroup;
+  conf_username: any = "";
+  conf_userid: any = "";
+  conf_status: any = "";
+  statusUpdatedUser: User;
+
+  userName: any;
+  p: number = 1;
 
   constructor(private adminUpdateUserService: AdminUpdateUserService, private modalService: NgbModal, private formBuilder: FormBuilder, private toastr: ToastrService) { }
 
@@ -29,7 +38,17 @@ export class AdminUpdateUserComponent implements OnInit {
     });
   }
 
-  loadAllUsers(){
+  search() {
+    if (this.userName == "") {
+      this.ngOnInit();
+    } else {
+      this.usersList = this.usersList.filter(resonse => {
+        return resonse.username.toLocaleLowerCase().match(this.userName.toLocaleLowerCase());
+      });
+    }
+  }
+
+  loadAllUsers() {
     this.adminUpdateUserService.getAllUsers().subscribe(data => {
       this.usersList = data;
     });
@@ -50,9 +69,47 @@ export class AdminUpdateUserComponent implements OnInit {
     });
   }
 
+  getConfirmation(targetModal, user) {
+    console.log("confirmation...");
+    this.modalService.open(targetModal, {
+      centered: true,
+      backdrop: 'static'
+      // size: "xl"
+    });
+
+    console.log(user.username);
+    this.conf_userid = user.userid;
+    this.conf_username = user.username;
+    this.conf_status = user.status;
+  }
+
+  updateStatus(userId: any, status: any) {
+    this.statusUpdatedUser = new User();
+    this.statusUpdatedUser.userid = userId;
+    this.statusUpdatedUser.lastEdit = sessionStorage.getItem('authenticatedUser');
+    console.log(userId + " " + status);
+
+    if (status === 'active') {
+      this.statusUpdatedUser.status = "inactive";
+    } else {
+      this.statusUpdatedUser.status = "active";
+    }
+
+    this.adminUpdateUserService.changeStatus(userId, this.statusUpdatedUser).subscribe(data => {
+      console.log(data), error => console.log(error)
+      if (data) {
+        this.closeModal("confirmationModal");
+        this.showSuccess();
+        this.loadAllUsers();
+      } else {
+        this.showError();
+      }
+    });
+  }
+
   // for update modal
   openEditModal(targetModal, user) {
-    console.log("update modal method..."+user.status);
+    console.log("update modal method..." + user.status);
     this.modalService.open(targetModal, {
       centered: true,
       backdrop: 'static'
@@ -65,7 +122,7 @@ export class AdminUpdateUserComponent implements OnInit {
       password: user.password,
       userRoleName: user.userRoleName,
       status: user.status
-      
+
     });
   }
 
@@ -75,7 +132,7 @@ export class AdminUpdateUserComponent implements OnInit {
 
   // Toastr
   showSuccess() {
-    this.toastr.success('New Workout Added', 'Successfully!',
+    this.toastr.success('User updated', 'Successfully!',
       { timeOut: 3000 });;
   }
 
